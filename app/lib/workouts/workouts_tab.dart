@@ -1,5 +1,5 @@
 import 'package:app/models/workout.model.dart';
-import 'package:app/root/spinner.dart';
+import 'package:app/widgets/spinner.dart';
 import 'package:app/widgets/swipe_pages.dart';
 import 'package:app/workouts/stats_page.dart';
 import 'package:app/workouts/workouts_service.dart';
