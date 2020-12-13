@@ -13,7 +13,6 @@ export class WorkoutsController {
 
   @Get()
   getWorkouts(@AuthedUser() user: User) {
-    console.log('getting workouts for user', user.email);
     return this.workoutsService.getForUser(user.id);
   }
 
