@@ -4,6 +4,7 @@ import { AuthedUser } from '#app/auth/user.decorator';
 import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 import { existsSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
+import { CreateWorkoutDto } from './workouts.dto';
 import { WorkoutsService } from './workouts.service';
 
 @Controller('workouts')
@@ -17,8 +18,11 @@ export class WorkoutsController {
   }
 
   @Post()
-  createWorkout() {
-    return {};
+  createWorkout(
+    @AuthedUser() user: User,
+    @Body() { date, activity }: CreateWorkoutDto,
+  ) {
+    return this.workoutsService.create(user.id, date, activity);
   }
 
   @Get('/:id')

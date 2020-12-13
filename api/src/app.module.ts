@@ -6,6 +6,17 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({}), DatabaseModule, WorkoutsModule, AuthModule, UsersModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath:
+        process.env.ENVIRONMENT_NAME === 'production'
+          ? '.production.env'
+          : '.env',
+    }),
+    DatabaseModule,
+    WorkoutsModule,
+    AuthModule,
+    UsersModule,
+  ],
 })
 export class AppModule {}

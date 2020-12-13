@@ -13,8 +13,11 @@ async function bootstrap() {
 
   app.enableCors();
 
-  await app.listen(8888, '0.0.0.0', () => {
+  const port = process.env.PORT || 8888;
+
+  await app.listen(port, () => {
     console.log('server running at http://localhost:8888');
   });
 }
+
 bootstrap();

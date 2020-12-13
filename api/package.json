@@ -1,24 +1,30 @@
 {
   "name": "api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "activities backend",
+  "author": "Nicklas Nordenmark",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">= 12.0.0"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start": "TZ=utc nest start",
+    "start:dev": "TZ=utc nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "TZ=utc ENVIRONMENT_NAME=production node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "knex": "export $(cat .env | xargs) && knex"
+    "knex": "export $(cat .env | xargs) && knex",
+    "knex:production": "export $(cat .env.production | xargs) && knex --env production",
+    "gcloud:build": "gcloud builds submit --tag gcr.io/activities-298512/activities",
+    "gcloud:deploy": "gcloud run deploy --image gcr.io/activities-298512/activities --platform managed"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",

@@ -13,7 +13,22 @@ export class WorkoutsService {
     return this.workoutModel.query();
   }
 
+  async create(
+    userId: number,
+    date: string,
+    activity: string,
+  ): Promise<WorkoutModel> {
+    return this.workoutModel.query().insert({
+      userId,
+      date: new Date(date),
+      activity,
+    });
+  }
+
   async getForUser(id: number): Promise<WorkoutModel[]> {
-    return this.workoutModel.query().where({ userId: id });
+    return this.workoutModel
+      .query()
+      .where({ userId: id })
+      .orderBy('date', 'desc');
   }
 }
