@@ -1,10 +1,19 @@
 import { User } from '#app/auth/auth.interfaces';
 import { JwtAuthGuard } from '#app/auth/jwt-auth.guard';
 import { AuthedUser } from '#app/auth/user.decorator';
-import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { existsSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
-import { CreateWorkoutDto } from './workouts.dto';
+import { CreateWorkoutDto, UpdateWorkoutDto } from './workouts.dto';
 import { WorkoutsService } from './workouts.service';
 
 @Controller('workouts')
@@ -25,14 +34,22 @@ export class WorkoutsController {
     return this.workoutsService.create(user.id, date, activity);
   }
 
+  @Put('/:id')
+  updateWorkout(
+    @Param('id') id: number,
+    @Body() { date, activity }: UpdateWorkoutDto,
+  ) {
+    return this.workoutsService.update(id, date, activity);
+  }
+
   @Get('/:id')
   getWorkout() {
     return {};
   }
 
   @Delete('/:id')
-  deleteWorkout() {
-    return true;
+  deleteWorkout(@Param('id') id: number) {
+    return this.workoutsService.delete(id);
   }
 
   @Post('/import')

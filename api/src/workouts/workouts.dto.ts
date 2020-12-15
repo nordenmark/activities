@@ -8,3 +8,12 @@ export class CreateWorkoutDto {
   @IsNotEmpty()
   activity: string;
 }
+
+export class UpdateWorkoutDto {
+  @IsISO8601()
+  date: string;
+
+  @IsString()
+  @IsNotEmpty()
+  activity: string;
+}

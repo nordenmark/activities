@@ -31,4 +31,21 @@ export class WorkoutsService {
       .where({ userId: id })
       .orderBy('date', 'desc');
   }
+
+  async delete(id: number): Promise<boolean> {
+    return this.workoutModel
+      .query()
+      .deleteById(id)
+      .then(() => true);
+  }
+
+  async update(
+    id: number,
+    date: string,
+    activity: string,
+  ): Promise<WorkoutModel> {
+    return this.workoutModel
+      .query()
+      .updateAndFetchById(id, { date: new Date(date), activity });
+  }
 }

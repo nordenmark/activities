@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Model, ObjectionModule } from 'nestjs-objection';
-import { WorkoutModel } from '#app/models/workout.model';
 
 @Module({
   imports: [
@@ -30,6 +29,7 @@ import { WorkoutModel } from '#app/models/workout.model';
           config: {
             client: 'postgres',
             useNullAsDefault: true,
+            debug: configService.get('DB_HOST') === 'localhost',
             connection,
           },
         };

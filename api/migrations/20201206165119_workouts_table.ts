@@ -2,7 +2,7 @@ import * as Knex from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('workouts', function(table) {
-    table.increments();
+    table.increments('id');
     table.string('activity').notNullable();
     table.date('date').notNullable();
     table

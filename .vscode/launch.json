@@ -5,20 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-chrome",
-      "request": "launch",
-      "name": "Launch Chrome against localhost",
-      "url": "http://localhost:8080",
-      "webRoot": "${workspaceFolder}"
-    },
-    {
-      "name": "Flutter",
+      "name": "app",
+      "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "debug",
       "args": [
-        "--dart-define=API_URL=http://localhost:8888"
-      ]
+        "--dart-define", "API_URL=http://localhost:8888"
+      ],
     }
   ]
 }
