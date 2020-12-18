@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Spinner extends StatelessWidget {
   final String text;
@@ -14,7 +14,7 @@ class Spinner extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Text(this.text),
         ),
-        CupertinoActivityIndicator(),
+        CircularProgressIndicator(),
       ],
     );
   }

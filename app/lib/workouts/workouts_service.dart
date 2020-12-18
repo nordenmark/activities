@@ -9,26 +9,41 @@ class WorkoutsService {
   WorkoutsService(this._httpService);
 
   Future<List<Workout>> get() async {
-    try {
-      final workoutsJson = await this
-          ._httpService
-          .get('/workouts')
-          .then((response) => response.data);
+    final workoutsJson = await this
+        ._httpService
+        .get('/workouts')
+        .then((response) => response.data);
 
-      final results = List<Map<String, dynamic>>.from(workoutsJson);
+    final results = List<Map<String, dynamic>>.from(workoutsJson);
 
-      final workouts = results
-          .map((workoutData) => Workout.fromJson(workoutData))
-          .toList(growable: true);
+    final workouts = results
+        .map((workoutData) => Workout.fromJson(workoutData))
+        .toList(growable: true);
 
-      print("FETCHED ${workouts.length} workouts");
+    return workouts;
+  }
 
-      return workouts;
-    } on DioError catch (e) {
-      print("Got DioError in workoutService.get(), returning empty array");
-      print(e.type.toString());
-      return [];
-    }
+  Future<Workout> add(Workout workout) async {
+    var data = workout.toJson();
+
+    return this
+        ._httpService
+        .post('/workouts', data: data)
+        .then((response) => Workout.fromJson(response.data));
+  }
+
+  Future<bool> delete(int id) async {
+    return this._httpService.delete('/workouts/$id').then((_) => true);
+  }
+
+  Future<Workout> update(int id, String activity, DateTime date) async {
+    var json = Workout(id: id, activity: activity, date: date).toJson();
+    var data = {'date': json['date'], 'activity': json['activity']};
+
+    return this
+        ._httpService
+        .put('/workouts/$id', data: data)
+        .then((response) => Workout.fromJson(response.data));
   }
 }
 

@@ -9,22 +9,21 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(30.0),
-            child: Image.asset('assets/images/logo_dark.png', width: 250),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Text(this.text),
-          ),
-          CupertinoActivityIndicator(),
-        ],
-      ),
-    ));
+    return Scaffold(
+        body: Container(
+            child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(30.0),
+          child: Image.asset('assets/images/logo_dark.png'),
+        ),
+        CircularProgressIndicator(),
+        Padding(
+          padding: const EdgeInsets.only(top: 18.0),
+          child: Text(this.text),
+        ),
+      ],
+    )));
   }
 }

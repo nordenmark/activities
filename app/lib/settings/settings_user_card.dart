@@ -1,6 +1,7 @@
 import 'package:app/models/user.model.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app/widgets/circle_initials.dart';
+import 'package:app/widgets/custom_text.dart';
+import 'package:flutter/material.dart';
 
 class SettingsUserCard extends StatelessWidget {
   final User user;
@@ -10,22 +11,21 @@ class SettingsUserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: CupertinoColors.white,
+        color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           children: [
-            CircularProfileAvatar(
-              'assets/images/appicon.png',
-              showInitialTextAbovePicture: true,
-              foregroundColor: CupertinoColors.systemBlue,
-              initialsText: Text(
-                _getInitials(user.name),
-                style: TextStyle(fontSize: 20, color: CupertinoColors.white),
-              ),
-              radius: 20,
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: CircleInitials(_getInitials(user.name)),
             ),
             Expanded(
-              child: Column(children: [Text(user.name), Text(user.email)]),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(user.name, type: TextType.H5),
+                    CustomText(user.email, type: TextType.BODY2)
+                  ]),
             )
           ],
         ));

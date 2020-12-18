@@ -11,8 +11,6 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { existsSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
 import { CreateWorkoutDto, UpdateWorkoutDto } from './workouts.dto';
 import { WorkoutsService } from './workouts.service';
 
@@ -50,19 +48,5 @@ export class WorkoutsController {
   @Delete('/:id')
   deleteWorkout(@Param('id') id: number) {
     return this.workoutsService.delete(id);
-  }
-
-  @Post('/import')
-  import(@Body() body: any[]) {
-    console.log(body, 'body');
-
-    const path = resolve('lucile.json');
-    if (existsSync(path)) {
-      writeFileSync(path, JSON.stringify(body));
-    }
-
-    console.log('wrote', body.length, 'entries to', path);
-
-    return body;
   }
 }

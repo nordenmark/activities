@@ -16,6 +16,8 @@ class Token {
     };
   }
 
+  bool get isValid => this.expiresAt.isAfter(DateTime.now());
+
   String get suffix => this.jwt.substring(this.jwt.length - 8);
 
   factory Token.fromJson(Map<String, dynamic> json) {

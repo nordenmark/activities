@@ -14,7 +14,6 @@ class SettingsTab extends HookWidget {
     final authState = useProvider(authControllerProvider.state);
 
     return CustomScrollView(slivers: <Widget>[
-      CupertinoSliverNavigationBar(largeTitle: Text('Settings')),
       SliverList(
         delegate: SliverChildListDelegate([
           SettingsUserCard(authState.user),

@@ -1,8 +1,7 @@
 import 'package:app/auth/auth_controller.dart';
 import 'package:app/auth/auth_service.dart';
 import 'package:app/login/login_form.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
@@ -11,28 +10,37 @@ class LoginScreen extends HookWidget {
   Widget build(BuildContext context) {
     final authService = useProvider(authServiceProvider);
     final authController = useProvider(authControllerProvider);
+    final isLoading = useState(false);
+    final errorMessage = useState('');
 
-    return CupertinoPageScaffold(
-        child: Center(
+    return Scaffold(
+        body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
             child: LoginForm(
-                isLoading: false, // @TODO get from state
-                errorMessage: '', // @TODO get from state
+                isLoading: isLoading.value,
+                errorMessage: errorMessage.value,
                 onSubmit: (email, password) async {
-                  // @TODO loading to LoginForm
+                  errorMessage.value = '';
+                  isLoading.value = true;
                   var response =
                       await authService.login(Credentials(email, password));
+                  isLoading.value = false;
 
                   if (response == null) {
-                    // @TODO error to loginForm
-                    print(
-                        "Error response, tokens null, return error to child widget");
+                    errorMessage.value = 'Invalid email or password';
+                    _showError(context);
                   } else {
-                    print("successful login, response ${response.toString()}");
-                    authController.initialize(
+                    authController.setState(
                         user: response.user,
                         accessToken: response.accessToken,
                         refreshToken: response.refreshToken);
                   }
                 })));
+  }
+
+  _showError(BuildContext context) {
+    final snackBar =
+        SnackBar(content: Text('Oops! Invalid email or password!'));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

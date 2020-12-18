@@ -1,6 +1,6 @@
 import 'package:app/root/authentication_wrapper.dart';
 import 'package:app/root/splash_app.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 
@@ -16,15 +16,12 @@ void runMainApp() {
 }
 
 class WorkoutsApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return MaterialApp(
       title: 'Workouts',
       debugShowCheckedModeBanner: false,
-      theme: CupertinoThemeData(
-        scaffoldBackgroundColor: CupertinoColors.extraLightBackgroundGray,
-      ),
+      theme: Styles.themeData(context),
       home: AuthenticationWrapper(),
     );
   }

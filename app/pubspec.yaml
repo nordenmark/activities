@@ -33,8 +33,10 @@ dependencies:
   cupertino_icons: ^1.0.1
   equatable: ^1.2.5
   flutter_secure_storage: ^3.3.5
+  google_fonts: ^1.1.1
   universal_html: ^1.2.3
-  circular_profile_avatar: ^1.0.6
+  jiffy: ^3.0.1
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +57,7 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  # uses-material-design: true
+  uses-material-design: true
 
   assets:
     - assets/images/

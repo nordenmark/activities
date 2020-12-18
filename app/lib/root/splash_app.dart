@@ -3,7 +3,9 @@ import 'package:app/auth/tokens.dart';
 import 'package:app/models/user.model.dart';
 import 'package:app/root/splash_screen.dart';
 import 'package:app/storage/storage_service.dart';
+import 'package:app/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -35,24 +37,27 @@ class _SplashAppState extends State<SplashApp> {
     Token refreshToken = await storageService.getRefreshToken();
     User user = await storageService.getUser();
 
-    if (accessToken != null && user != null) {
-      authController.initialize(
+    if (accessToken != null && user != null && refreshToken != null) {
+      print("Tokens found in storage, updating state");
+      authController.setState(
           user: user, accessToken: accessToken, refreshToken: refreshToken);
+    } else {
+      print("No tokens or user found in storage, clean startup");
     }
 
-    // @TODO also fetch workflows here?
+    authController.addListener((state) {
+      print("auth controller listener ${state}");
+    });
 
     widget.onInitializationComplete();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return MaterialApp(
       title: 'Workouts - loading',
       debugShowCheckedModeBanner: false,
-      theme: CupertinoThemeData(
-        scaffoldBackgroundColor: CupertinoColors.extraLightBackgroundGray,
-      ),
+      theme: Styles.themeData(context),
       home: SplashScreen(),
     );
   }

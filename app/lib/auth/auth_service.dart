@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:app/auth/tokens.dart';
 import 'package:app/models/user.model.dart';
 import 'package:app/root/http_service.dart';
@@ -45,14 +43,6 @@ class AuthService {
         "password": credentials.password
       }).then((response) => response.data);
 
-      // Token accessToken = Token(
-      //     jwt: response['accessToken'],
-      //     expiresIn: response['accessTokenExpiresIn']);
-      // Token refreshToken = Token(
-      //     jwt: response['refreshToken'],
-      //     expiresIn: response['refreshTokenExpiresIn']);
-      // User user = User.fromJson(response['user']);
-
       return LoginResponse.fromJson(response);
     } on DioError catch (e) {
       print(e.toString());
@@ -64,15 +54,7 @@ class AuthService {
     var response = await this._httpService.post('/auth/refresh',
         data: {"refreshToken": token}).then((response) => response.data);
 
-    Token accessToken = Token(
-        jwt: response['accessToken'],
-        expiresIn: response['accessTokenExpiresIn']);
-    Token refreshToken = Token(
-        jwt: response['refreshToken'],
-        expiresIn: response['refreshTokenExpiresIn']);
-    User user = User.fromJson(response['user']);
-
-    return LoginResponse(accessToken, refreshToken, user);
+    return LoginResponse.fromJson(response);
   }
 }
 

@@ -9,14 +9,15 @@ class IconHelper {
     ['simma', 'simning']: MaterialCommunityIcons.swim,
     ['vandring']: FontAwesome5Solid.hiking,
     ['träning hemma']: MaterialCommunityIcons.home,
-    ['gym']: Icons.fitness_center,
+    ['gym']: MaterialCommunityIcons.dumbbell,
     ['badminton']: MaterialCommunityIcons.badminton,
     ['innebandy']: MaterialCommunityIcons.hockey_sticks,
     ['tennis']: MaterialCommunityIcons.tennis_ball,
     ['squash']: MaterialCommunityIcons.baseball_bat,
     ['klättring']: MaterialCommunityIcons.hand,
     ['bodybalance']: MaterialCommunityIcons.human_greeting,
-    ['bodyjam']: MaterialCommunityIcons.thumbs_up_down
+    ['bodyjam']: MaterialCommunityIcons.thumbs_up_down,
+    ['yoga']: FontAwesome.yen,
   };
 
   static IconData iconFromActivity(String activity) {
