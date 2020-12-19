@@ -24,19 +24,27 @@ class WorkoutsController extends StateNotifier<AsyncValue<List<Workout>>> {
   }
 
   void add(Workout workout) async {
+    // To keep a reference to the list while we set the state to loading
+    var list = state.data.value;
+    state = const AsyncValue.loading();
+
     state = await AsyncValue.guard(() async {
       final createdWorkout = await this.workoutsService.add(workout);
 
-      return [createdWorkout, ...state.data.value];
+      return [createdWorkout, ...list];
     });
   }
 
   void update(int id, String activity, DateTime date) async {
+    // To keep a reference to the list while we set the state to loading
+    var list = state.data.value;
+    state = const AsyncValue.loading();
+
     state = await AsyncValue.guard(() async {
       final updatedWorkout =
           await this.workoutsService.update(id, activity, date);
 
-      var replaced = state.data.value.map((workout) {
+      var replaced = list.map((workout) {
         if (workout.id == id) {
           return updatedWorkout;
         } else {
@@ -49,9 +57,13 @@ class WorkoutsController extends StateNotifier<AsyncValue<List<Workout>>> {
   }
 
   void delete(int id) async {
+    // To keep a reference to the list while we set the state to loading
+    var list = state.data.value;
+    state = const AsyncValue.loading();
+
     state = await AsyncValue.guard(() async {
       await this.workoutsService.delete(id);
-      var clone = [...state.data.value];
+      var clone = [...list];
       clone.removeWhere((workout) => workout.id == id);
       return clone;
     });

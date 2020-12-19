@@ -45,10 +45,6 @@ class _SplashAppState extends State<SplashApp> {
       print("No tokens or user found in storage, clean startup");
     }
 
-    authController.addListener((state) {
-      print("auth controller listener ${state}");
-    });
-
     widget.onInitializationComplete();
   }
 

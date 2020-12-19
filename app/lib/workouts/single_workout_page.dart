@@ -14,6 +14,10 @@ class SingleWorkoutPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     print("SingleWorkoutPage this.workout: ${this.workout}");
+    var workouts = context.read(workoutsControllerProvider.state).data?.value;
+    var activitySuggestions =
+        Set<String>.from(workouts.map((workout) => workout.activity));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(this.workout != null ? 'EDIT WORKOUT' : 'ADD WORKOUT'),
@@ -22,6 +26,7 @@ class SingleWorkoutPage extends HookWidget {
           padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
           child: WorkoutForm(
               workout: this.workout,
+              activitySuggestions: activitySuggestions,
               onSave: ({DateTime date, String activity}) {
                 if (this.workout == null) {
                   context
