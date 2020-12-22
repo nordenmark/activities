@@ -13,7 +13,7 @@ class WorkoutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.only(bottom: 2.0),
+        margin: EdgeInsets.zero,
         color: Styles.white,
         child: InkWell(
             onTap: () {
