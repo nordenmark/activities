@@ -1,7 +1,7 @@
 import 'package:app/models/workout.model.dart';
 import 'package:app/widgets/spinner.dart';
 import 'package:app/workouts/top_activities.dart';
-import 'package:app/workouts/workouts_count.dart';
+import 'package:app/workouts/yearly_progress_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,8 +26,8 @@ class DashboardPage extends HookWidget {
 
   Widget body(List<Workout> workouts) {
     List<Widget> children = [
-      WorkoutsCount(workouts: workouts, target: 135),
-      TopActivities(workouts: workouts)
+      YearlyProgressSummary(workouts: workouts, target: 135),
+      TopActivities(workouts: workouts),
     ];
 
     return ListView.separated(

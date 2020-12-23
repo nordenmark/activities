@@ -30,7 +30,7 @@ class DashboardCard extends StatelessWidget {
         margin: EdgeInsets.zero,
         color: Styles.overlayBgColor,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(14.0),
           child: renderChild,
         ));
   }

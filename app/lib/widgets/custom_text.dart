@@ -1,3 +1,4 @@
+import 'package:app/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 
 enum TextType {
@@ -12,6 +13,7 @@ enum TextType {
   SUBTITLE2,
   BODY,
   BODY2,
+  BODY_DISCRETE,
 }
 
 class CustomText extends StatelessWidget {
@@ -37,6 +39,8 @@ class CustomText extends StatelessWidget {
     TextType.SUBTITLE2: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
     TextType.BODY: TextStyle(fontSize: 16),
     TextType.BODY2: TextStyle(fontSize: 14),
+    TextType.BODY_DISCRETE:
+        TextStyle(fontSize: 16, color: Styles.appDiscreteColor),
   };
 
   @override

@@ -41,7 +41,7 @@ class TopActivities extends StatelessWidget {
         this._getTopActivities(this.workouts, count: 3);
 
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         color: Styles.overlayBgColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
