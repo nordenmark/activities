@@ -9,6 +9,7 @@ class CustomInput extends StatelessWidget {
   final bool autocorrect;
   final bool obscureText;
   final IconData icon;
+  final Iterable<String> autofillHints;
 
   const CustomInput(
       {Key key,
@@ -19,12 +20,14 @@ class CustomInput extends StatelessWidget {
       this.keyboardType = TextInputType.text,
       this.autocorrect = true,
       this.obscureText = false,
-      this.icon})
+      this.icon,
+      this.autofillHints = const []})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofillHints: this.autofillHints,
       controller: this.controller,
       autofocus: false,
       decoration: InputDecoration(

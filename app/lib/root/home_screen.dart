@@ -1,17 +1,16 @@
-import 'package:app/models/workout.model.dart';
+import 'package:app/challenges/challenges_page.dart';
+import 'package:app/challenges/single_challenge_page.dart';
 import 'package:app/root/tab_item.dart';
-import 'package:app/settings/settings_tab.dart';
+import 'package:app/settings/settings_page.dart';
 import 'package:app/utils/styles.dart';
-import 'package:app/widgets/spinner.dart';
 import 'package:app/workouts/dashboard_page.dart';
 import 'package:app/workouts/single_workout_page.dart';
 import 'package:app/workouts/workouts_page.dart';
-import 'package:app/workouts/workouts_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
-final selectedTabProvider = StateProvider<TabItem>((ref) => TabItem.dashboard);
+final selectedTabProvider = StateProvider<TabItem>((ref) => TabItem.challenges);
 
 class HomeScreen extends HookWidget {
   final Map<TabItem, String> tabLabels = {
@@ -21,19 +20,19 @@ class HomeScreen extends HookWidget {
     TabItem.more: 'MORE',
   };
 
-  Map<TabItem, WidgetBuilder> widgetBuilders(List<Workout> workouts) {
+  Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
       TabItem.dashboard: (context) {
-        return DashboardPage(workouts: workouts);
+        return DashboardPage();
       },
       TabItem.workouts: (context) {
-        return WorkoutsPage(workouts: workouts);
+        return WorkoutsPage();
       },
       TabItem.challenges: (_) {
-        return Text('Challenges');
+        return ChallengesPage();
       },
       TabItem.more: (_) {
-        return SettingsTab();
+        return SettingsPage();
       }
     };
   }
@@ -49,7 +48,14 @@ class HomeScreen extends HookWidget {
                   MaterialPageRoute(builder: (context) => SingleWorkoutPage()));
             });
       },
-      TabItem.challenges: (_) => null,
+      TabItem.challenges: (context) {
+        return FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SingleChallengePage()));
+            });
+      },
       TabItem.more: (_) => null,
     };
   }
@@ -64,11 +70,7 @@ class HomeScreen extends HookWidget {
       ),
       body: Consumer(
         builder: (context, watch, child) {
-          return watch(workoutsControllerProvider.state).when(
-              data: (workouts) =>
-                  this.widgetBuilders(workouts)[selectedTab.state](context),
-              loading: () => Center(child: Spinner()),
-              error: (e, stack) => Text(e.toString()));
+          return this.widgetBuilders[selectedTab.state](context);
         },
       ),
       floatingActionButton: fabBuilders[selectedTab.state](context),

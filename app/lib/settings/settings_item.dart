@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 typedef Future<void> PressOperationCallback();
 
@@ -14,24 +16,27 @@ class SettingsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget iconWidget = Padding(
         padding: const EdgeInsets.only(
-          left: 15.0,
-          bottom: 2.0,
           right: 10.0,
         ),
         child: Icon(this.icon));
 
     Widget labelWidget = Text(this.label);
 
-    return Container(
-        color: CupertinoColors.white,
-        child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: onPress,
-            child: SizedBox(
-                height: 44.0,
-                child: Row(children: [
-                  iconWidget,
-                  labelWidget,
-                ]))));
+    Widget chevron = Icon(FlutterIcons.chevron_right_mdi);
+
+    return InkWell(
+        onTap: onPress,
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            height: 44.0,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(children: [
+                    iconWidget,
+                    labelWidget,
+                  ]),
+                  chevron
+                ])));
   }
 }

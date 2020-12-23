@@ -1,6 +1,7 @@
 import 'package:app/utils/styles.dart';
 import 'package:app/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class DashboardCard extends StatelessWidget {
   final Widget child;
@@ -25,9 +26,12 @@ class DashboardCard extends StatelessWidget {
       renderChild = this.child;
     }
 
-    return Container(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+    return Card(
+        margin: EdgeInsets.zero,
         color: Styles.overlayBgColor,
-        child: renderChild);
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: renderChild,
+        ));
   }
 }

@@ -24,23 +24,29 @@ class LoginForm extends HookWidget {
 
     List<Widget> formElements = [
       Image.asset('assets/images/logo_dark.png', height: 140),
-      CustomInput(
-        controller: emailController,
-        label: 'Email',
-        icon: Icons.email,
-        keyboardType: TextInputType.emailAddress,
-        autocorrect: false,
-        validator: (value) =>
-            Validators.isValidEmail(value) ? null : 'Invalid email address',
-      ),
-      CustomInput(
-        controller: passwordController,
-        label: 'Password',
-        icon: Icons.lock,
-        obscureText: true,
-        autocorrect: false,
-        validator: (value) =>
-            Validators.isValidPassword(value) ? null : 'Password too short',
+      AutofillGroup(
+        child: Column(children: [
+          CustomInput(
+            autofillHints: [AutofillHints.username],
+            controller: emailController,
+            label: 'Email',
+            icon: Icons.email,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            validator: (value) =>
+                Validators.isValidEmail(value) ? null : 'Invalid email address',
+          ),
+          CustomInput(
+            autofillHints: [AutofillHints.password],
+            controller: passwordController,
+            label: 'Password',
+            icon: Icons.lock,
+            obscureText: true,
+            autocorrect: false,
+            validator: (value) =>
+                Validators.isValidPassword(value) ? null : 'Password too short',
+          ),
+        ]),
       ),
       Button(
         label: 'Login',

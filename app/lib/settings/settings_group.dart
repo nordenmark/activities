@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:app/utils/styles.dart';
+import 'package:flutter/material.dart';
 
 class SettingsGroup extends StatelessWidget {
   final List<Widget> items;
@@ -7,11 +8,25 @@ class SettingsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: CupertinoColors.white,
+    return Card(
+        color: Styles.overlayBgColor,
+        margin: EdgeInsets.zero,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: this.items,
+          children: List.generate(this.items.length, (index) {
+            var child = this.items[index];
+
+            if (index != this.items.length - 1) {
+              return Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Styles.borderColor, width: 1))),
+                child: child,
+              );
+            }
+
+            return child;
+          }),
         ));
   }
 }
