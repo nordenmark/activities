@@ -23,14 +23,7 @@ class CenteredForm extends StatelessWidget {
 
     return Form(
       key: this.formKey,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Spacer(flex: 3),
-          Expanded(child: list, flex: 10),
-          const Spacer(flex: 3),
-        ],
-      ),
+      child: list,
     );
   }
 }

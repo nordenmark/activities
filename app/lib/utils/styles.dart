@@ -30,6 +30,10 @@ class Styles {
   // Text
   static Color textColor = appPrimaryColor;
 
+  static TextStyle baseStyle = TextStyle(fontSize: 16, color: appPrimaryColor);
+  static TextStyle discreteStyle =
+      TextStyle(fontSize: 16, color: appDiscreteColor);
+
   static ThemeData themeData(context) {
     final textTheme = Theme.of(context).textTheme;
 

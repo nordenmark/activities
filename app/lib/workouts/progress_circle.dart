@@ -18,7 +18,7 @@ class ProgressCircle extends StatelessWidget {
     this.baseColor = Styles.appDiscreteColor,
     @required this.progressPercent,
   })  : assert(width == height),
-        assert(progressPercent >= 0 && progressPercent <= 1),
+        assert(progressPercent >= 0),
         super(key: key);
 
   @override

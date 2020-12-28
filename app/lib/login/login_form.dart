@@ -23,6 +23,7 @@ class LoginForm extends HookWidget {
     final passwordController = useTextEditingController();
 
     List<Widget> formElements = [
+      SizedBox(height: 80),
       Image.asset('assets/images/logo_dark.png', height: 140),
       AutofillGroup(
         child: Column(children: [
@@ -36,6 +37,7 @@ class LoginForm extends HookWidget {
             validator: (value) =>
                 Validators.isValidEmail(value) ? null : 'Invalid email address',
           ),
+          SizedBox(height: 8),
           CustomInput(
             autofillHints: [AutofillHints.password],
             controller: passwordController,

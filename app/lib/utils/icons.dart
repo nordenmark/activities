@@ -18,6 +18,7 @@ class IconHelper {
     ['bodybalance']: MaterialCommunityIcons.human_greeting,
     ['bodyjam']: MaterialCommunityIcons.thumbs_up_down,
     ['yoga']: FontAwesome.yen,
+    ['skridskor']: FlutterIcons.skate_mco
   };
 
   static IconData iconFromActivity(String activity) {

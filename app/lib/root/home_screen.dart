@@ -1,3 +1,4 @@
+import 'package:app/challenges/add_challenge_page.dart';
 import 'package:app/challenges/challenges_page.dart';
 import 'package:app/challenges/single_challenge_page.dart';
 import 'package:app/root/tab_item.dart';
@@ -52,8 +53,8 @@ class HomeScreen extends HookWidget {
         return FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SingleChallengePage()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AddChallengePage()));
             });
       },
       TabItem.more: (_) => null,

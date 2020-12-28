@@ -14,10 +14,25 @@ class YearlyProgressSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String workoutsRemainingText = this._getWorkoutsRemainingText();
-    final String timeRemainingText = this._getTimeRemainingText();
-    final int percentRemaining =
-        100 - (this.workouts.length / this.target * 100).round();
+    final int daysElapsed = this._getDaysElapsed();
+    final int targetWorkouts = this._getTargetWorkouts(daysElapsed);
+    final int daysRemaining = this._getDaysRemaining();
+
+    String encouragementText = '';
+    Color progressColor;
+
+    if (this.workouts.length > targetWorkouts) {
+      encouragementText =
+          'You are ahead by ${this.workouts.length - targetWorkouts}, great job!';
+      progressColor = Colors.green;
+    } else if (this.workouts.length == targetWorkouts) {
+      encouragementText = 'You are up to speed, good job!';
+      progressColor = Colors.orange;
+    } else {
+      encouragementText =
+          'You need ${targetWorkouts - this.workouts.length} more to be up to speed, keep working out!';
+      progressColor = Colors.red;
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,7 +41,8 @@ class YearlyProgressSummary extends StatelessWidget {
             width: 100,
             height: 100,
             baseColor: Styles.appDiscreteColor.withOpacity(0.4),
-            progressPercent: this.workouts.length / this.target),
+            progressColor: progressColor,
+            progressPercent: this.workouts.length / targetWorkouts),
         Expanded(
             child: Container(
           padding: EdgeInsets.symmetric(horizontal: 28),
@@ -35,17 +51,59 @@ class YearlyProgressSummary extends StatelessWidget {
             children: [
               CustomText('Your workout summary', type: TextType.H6),
               SizedBox(height: 8),
-              CustomText(
-                '$percentRemaining% remaining',
-                type: TextType.BODY_DISCRETE,
-              ),
-              CustomText(timeRemainingText, type: TextType.BODY_DISCRETE),
-              CustomText(workoutsRemainingText, type: TextType.BODY_DISCRETE),
+              RichText(
+                  text: TextSpan(style: Styles.discreteStyle, children: [
+                TextSpan(text: 'We are on day '),
+                TextSpan(text: '$daysElapsed, ', style: Styles.baseStyle),
+                TextSpan(text: '$daysRemaining', style: Styles.baseStyle),
+                TextSpan(text: ' days remain and you should be at '),
+                TextSpan(text: '$targetWorkouts', style: Styles.baseStyle),
+                TextSpan(text: ' workouts.'),
+              ])),
+              SizedBox(height: 8),
+              RichText(
+                  text: TextSpan(style: Styles.discreteStyle, children: [
+                TextSpan(text: 'You are at '),
+                TextSpan(
+                    text: '${this.workouts.length}', style: Styles.baseStyle),
+                TextSpan(text: '.'),
+              ])),
+              SizedBox(height: 8),
+              CustomText(encouragementText),
             ],
           ),
         ))
       ],
     );
+  }
+
+  int _getTargetWorkouts(int daysElapsed) {
+    final double workoutsPerDay = this.target / 365;
+
+    return (workoutsPerDay * daysElapsed).round();
+  }
+
+  int _getDaysElapsed() {
+    return Jiffy().dayOfYear;
+  }
+
+  int _getDaysRemaining() {
+    final Jiffy endOfTheYear = Jiffy()..endOf(Units.YEAR);
+    final Jiffy today = Jiffy()..startOf(Units.DAY);
+
+    // Include today
+    return endOfTheYear.diff(today, Units.DAY) + 1;
+  }
+
+  String _getPercentRemainingText() {
+    final int percentRemaining =
+        100 - (this.workouts.length / this.target * 100).round();
+
+    if (percentRemaining > 0) {
+      return '$percentRemaining% remaining';
+    } else {
+      return '0% remaining';
+    }
   }
 
   String _getWorkoutsRemainingText() {
@@ -54,7 +112,7 @@ class YearlyProgressSummary extends StatelessWidget {
     if (remaining > 0) {
       return '$remaining workouts left to ${this.target}';
     } else if (remaining < 0) {
-      return '$remaining workouts above target';
+      return '${-1 * remaining} workouts above target';
     } else {
       return 'You made it!';
     }
