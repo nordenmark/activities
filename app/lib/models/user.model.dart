@@ -20,4 +20,8 @@ class User {
       'name': this.name,
     };
   }
+
+  String toString() {
+    return 'id=${this.id}, name=${this.name}, email=${this.email}';
+  }
 }

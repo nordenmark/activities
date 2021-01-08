@@ -19,6 +19,7 @@ class ProgressCircle extends StatelessWidget {
     @required this.progressPercent,
   })  : assert(width == height),
         assert(progressPercent >= 0),
+        assert(progressPercent < double.maxFinite),
         super(key: key);
 
   @override

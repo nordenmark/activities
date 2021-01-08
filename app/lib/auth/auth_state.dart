@@ -30,4 +30,8 @@ class AuthState extends Equatable {
 
   @override
   List<Object> get props => [user, accessToken, refreshToken];
+
+  String toString() {
+    return "$user";
+  }
 }

@@ -26,6 +26,7 @@ class Styles {
 
   static Color shadowColor = darkGray.withOpacity(0.1);
   static Color borderColor = Colors.blueGrey[100];
+  static Color subtleColor = manatee.withOpacity(0.4);
 
   // Text
   static Color textColor = appPrimaryColor;

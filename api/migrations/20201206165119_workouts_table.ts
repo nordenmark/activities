@@ -9,7 +9,8 @@ export async function up(knex: Knex): Promise<void> {
       .integer('userId')
       .references('id')
       .inTable('users')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
   });
 }
 

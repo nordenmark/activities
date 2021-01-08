@@ -1,6 +1,5 @@
 import 'package:app/challenges/add_challenge_page.dart';
 import 'package:app/challenges/challenges_page.dart';
-import 'package:app/challenges/single_challenge_page.dart';
 import 'package:app/root/tab_item.dart';
 import 'package:app/settings/settings_page.dart';
 import 'package:app/utils/styles.dart';
@@ -11,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
-final selectedTabProvider = StateProvider<TabItem>((ref) => TabItem.challenges);
+final selectedTabProvider = StateProvider<TabItem>((ref) => TabItem.dashboard);
 
 class HomeScreen extends HookWidget {
   final Map<TabItem, String> tabLabels = {

@@ -41,6 +41,7 @@
     "nestjs-objection": "^2.2.0",
     "objection": "^2.2.3",
     "objection-guid": "^3.0.2",
+    "objection-visibility": "^1.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pg": "^8.5.1",

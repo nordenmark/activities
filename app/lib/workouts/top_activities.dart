@@ -61,32 +61,26 @@ class TopActivities extends StatelessWidget {
     var percentage = _getRoundedPercentage(count, this.workouts.length);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          print(constraints);
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12.0),
-                      child: Icon(IconHelper.iconFromActivity(activity),
-                          size: 30, color: Styles.lightSlateGray),
-                    ),
-                    CustomText(activity,
-                        type: TextType.SUBTITLE1,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 12.0),
+                  child: Icon(IconHelper.iconFromActivity(activity),
+                      size: 30, color: Styles.lightSlateGray),
                 ),
-              ),
-              Expanded(
-                  flex: 1, child: CustomText('$count times ($percentage%)')),
-            ],
-          );
-        },
+                CustomText(activity,
+                    type: TextType.SUBTITLE1,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+          Expanded(flex: 1, child: CustomText('$count times ($percentage%)')),
+        ],
       ),
     );
   }

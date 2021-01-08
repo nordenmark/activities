@@ -12,7 +12,7 @@ class WorkoutList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: EdgeInsets.all(8),
-      separatorBuilder: (BuildContext context, int index) => const Divider(
+      separatorBuilder: (ctx, index) => const Divider(
         height: 5.0,
         color: Colors.transparent,
       ),

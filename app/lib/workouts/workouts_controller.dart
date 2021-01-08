@@ -1,71 +1,64 @@
 import 'package:app/models/workout.model.dart';
 import 'package:app/workouts/workouts_service.dart';
+import 'package:app/workouts/workouts_state.dart';
 import 'package:hooks_riverpod/all.dart';
 
 final workoutsControllerProvider =
-    StateNotifierProvider.autoDispose<WorkoutsController>((ref) {
-  ref.maintainState = true;
-
+    StateNotifierProvider<WorkoutsController>((ref) {
   final workoutsService = ref.read(workoutsServiceProvider);
 
   return WorkoutsController(workoutsService);
 });
 
-class WorkoutsController extends StateNotifier<AsyncValue<List<Workout>>> {
+class WorkoutsController extends StateNotifier<WorkoutsState> {
   final WorkoutsService workoutsService;
 
-  WorkoutsController(this.workoutsService) : super(AsyncValue.loading()) {
-    _load();
+  WorkoutsController(this.workoutsService) : super(WorkoutsState.initial()) {
+    _init();
   }
 
-  Future<void> _load() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => this.workoutsService.get());
+  _init() async {
+    state = state.copyWith(isLoading: true);
+    final workouts = await this.workoutsService.get();
+    state = state.copyWith(workouts: workouts, isLoading: false);
   }
 
-  void add(Workout workout) async {
-    // To keep a reference to the list while we set the state to loading
-    var list = state.data.value;
-    state = const AsyncValue.loading();
-
-    state = await AsyncValue.guard(() async {
-      final createdWorkout = await this.workoutsService.add(workout);
-
-      return [createdWorkout, ...list];
-    });
+  Future<void> refresh() async {
+    _init();
   }
 
-  void update(int id, String activity, DateTime date) async {
-    // To keep a reference to the list while we set the state to loading
-    var list = state.data.value;
-    state = const AsyncValue.loading();
+  add(Workout workout) async {
+    state = state.copyWith(isLoading: true);
+    final createdWorkout = await this.workoutsService.add(workout);
+    state = state.copyWith(
+        workouts: [createdWorkout, ...state.workouts], isLoading: false);
+  }
 
-    state = await AsyncValue.guard(() async {
-      final updatedWorkout =
-          await this.workoutsService.update(id, activity, date);
+  update(int id, String activity, DateTime date) async {
+    state = state.copyWith(isLoading: true);
 
-      var replaced = list.map((workout) {
-        if (workout.id == id) {
-          return updatedWorkout;
-        } else {
-          return workout;
-        }
-      }).toList();
+    final updatedWorkout =
+        await this.workoutsService.update(id, activity, date);
 
-      return replaced;
-    });
+    var replaced = state.workouts.map((workout) {
+      if (workout.id == id) {
+        return updatedWorkout;
+      } else {
+        return workout;
+      }
+    }).toList();
+
+    state = state.copyWith(workouts: replaced, isLoading: false);
   }
 
   void delete(int id) async {
-    // To keep a reference to the list while we set the state to loading
-    var list = state.data.value;
-    state = const AsyncValue.loading();
+    state = state.copyWith(isLoading: true);
 
-    state = await AsyncValue.guard(() async {
-      await this.workoutsService.delete(id);
-      var clone = [...list];
-      clone.removeWhere((workout) => workout.id == id);
-      return clone;
-    });
+    await this.workoutsService.delete(id);
+
+    final clone = [...state.workouts];
+    clone.removeWhere((workout) => workout.id == id);
+
+    state = state.copyWith(workouts: clone, isLoading: false);
   }
 }

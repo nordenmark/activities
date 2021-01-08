@@ -12,9 +12,18 @@ class WorkoutsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    return watch(workoutsControllerProvider.state).when(
-        data: (workouts) => WorkoutList(workouts),
-        loading: () => Center(child: Spinner()),
-        error: (e, stack) => Text(e.toString()));
+    final isLoading = watch(workoutsControllerProvider.state).isLoading;
+    final workouts = watch(workoutsControllerProvider.state).workouts;
+
+    if (isLoading) {
+      return Spinner(text: 'Loading workouts...');
+    }
+
+    return RefreshIndicator(
+      onRefresh: () {
+        return context.read(workoutsControllerProvider).refresh();
+      },
+      child: WorkoutList(workouts),
+    );
   }
 }

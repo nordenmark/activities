@@ -17,6 +17,7 @@ class YearlyProgressSummary extends StatelessWidget {
     final int daysElapsed = this._getDaysElapsed();
     final int targetWorkouts = this._getTargetWorkouts(daysElapsed);
     final int daysRemaining = this._getDaysRemaining();
+    final double progressPercent = this._getProgressPercent(targetWorkouts);
 
     String encouragementText = '';
     Color progressColor;
@@ -42,7 +43,7 @@ class YearlyProgressSummary extends StatelessWidget {
             height: 100,
             baseColor: Styles.appDiscreteColor.withOpacity(0.4),
             progressColor: progressColor,
-            progressPercent: this.workouts.length / targetWorkouts),
+            progressPercent: progressPercent),
         Expanded(
             child: Container(
           padding: EdgeInsets.symmetric(horizontal: 28),
@@ -77,10 +78,25 @@ class YearlyProgressSummary extends StatelessWidget {
     );
   }
 
-  int _getTargetWorkouts(int daysElapsed) {
-    final double workoutsPerDay = this.target / 365;
+  double _getProgressPercent(int targetWorkouts) {
+    if (targetWorkouts == 0) {
+      return 0;
+    }
 
-    return (workoutsPerDay * daysElapsed).round();
+    var progress = this.workouts.length / targetWorkouts;
+
+    if (progress.isNaN) {
+      return 0;
+    }
+
+    return progress;
+  }
+
+  int _getTargetWorkouts(int daysElapsed) {
+    final int numberOfDays = Jiffy().isLeapYear ? 366 : 365;
+    final double workoutsPerDay = this.target / numberOfDays;
+
+    return (workoutsPerDay * daysElapsed).floor();
   }
 
   int _getDaysElapsed() {
@@ -93,45 +109,5 @@ class YearlyProgressSummary extends StatelessWidget {
 
     // Include today
     return endOfTheYear.diff(today, Units.DAY) + 1;
-  }
-
-  String _getPercentRemainingText() {
-    final int percentRemaining =
-        100 - (this.workouts.length / this.target * 100).round();
-
-    if (percentRemaining > 0) {
-      return '$percentRemaining% remaining';
-    } else {
-      return '0% remaining';
-    }
-  }
-
-  String _getWorkoutsRemainingText() {
-    final int remaining = this.target - this.workouts.length;
-
-    if (remaining > 0) {
-      return '$remaining workouts left to ${this.target}';
-    } else if (remaining < 0) {
-      return '${-1 * remaining} workouts above target';
-    } else {
-      return 'You made it!';
-    }
-  }
-
-  String _getTimeRemainingText() {
-    final Jiffy endOfTheYear = Jiffy()..endOf(Units.YEAR);
-    final Jiffy today = Jiffy()..startOf(Units.DAY);
-
-    final differenceInDays = endOfTheYear.diff(today, Units.DAY);
-
-    if (differenceInDays == 1) {
-      return 'Today is the last day!';
-    } else if (differenceInDays >= 60) {
-      final differenceInMonths = endOfTheYear.diff(today, Units.MONTH);
-      return '$differenceInMonths months left';
-    }
-
-    // Plus 1 to include today
-    return '${differenceInDays + 1} days left';
   }
 }

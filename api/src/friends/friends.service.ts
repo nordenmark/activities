@@ -30,6 +30,8 @@ export class FriendsService {
       name: user.name,
       email: user.email,
       workoutsCount: user.workouts.length,
+      // @TODO get this from settings
+      targetWorkouts: 156,
     }));
   }
 

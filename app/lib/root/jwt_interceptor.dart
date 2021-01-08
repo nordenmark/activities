@@ -41,11 +41,8 @@ class JwtInterceptor extends Interceptor {
     final authController = ref.read(authControllerProvider);
 
     // If we have an accessToken that is not expired
-
     if (authState.accessToken != null) {
       if (authState.accessToken.isValid) {
-        print(
-            "access TOKEN IS STILL VALID (until: ${authState.accessToken.expiresAt}) so using it TOKEN: ${authState.accessToken.jwt}");
         options.headers['Authorization'] =
             'Bearer ${authState.accessToken.jwt}';
         return super.onRequest(options);

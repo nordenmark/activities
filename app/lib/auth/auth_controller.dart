@@ -19,14 +19,12 @@ class AuthController extends StateNotifier<AuthState> {
   void setState({User user, Token accessToken, Token refreshToken}) {
     this.state = this.state.copyWith(
         user: user, accessToken: accessToken, refreshToken: refreshToken);
-    print("### Updating accessToken in state ${accessToken.suffix}");
     storageService.setUser(user);
     storageService.setAccessToken(accessToken);
     storageService.setRefreshToken(refreshToken);
   }
 
   void logout() {
-    print("AuthController.logout, clearing state and storage");
     this.state = AuthState.initial();
     this.storageService.clear();
   }

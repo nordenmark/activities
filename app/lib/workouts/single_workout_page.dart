@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
+final activitiesProvider = Provider<Set<String>>((ref) {
+  final workouts = ref.watch(workoutsControllerProvider.state).workouts;
+
+  return Set<String>.from(workouts.map((workout) => workout.activity));
+});
+
 class SingleWorkoutPage extends HookWidget {
   final Workout workout;
 
@@ -14,9 +20,7 @@ class SingleWorkoutPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     print("SingleWorkoutPage this.workout: ${this.workout}");
-    var workouts = context.read(workoutsControllerProvider.state).data?.value;
-    var activitySuggestions =
-        Set<String>.from(workouts.map((workout) => workout.activity));
+    var activitySuggestions = useProvider(activitiesProvider);
 
     return Scaffold(
       appBar: AppBar(
