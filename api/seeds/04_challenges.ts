@@ -10,5 +10,22 @@ export async function seed(knex: Knex): Promise<void> {
       toDate: new Date(2020, 11, 30),
       creatorId: 1,
     },
+    {
+      name: 'Push ups on the fingertips',
+      fromDate: new Date(2020, 11, 1),
+      toDate: new Date(2021, 1, 30),
+      creatorId: 1,
+    },
+  ]);
+
+  await knex('challenge_users').insert([
+    {
+      userId: 1,
+      challengeId: 1,
+    },
+    {
+      userId: 1,
+      challengeId: 2,
+    },
   ]);
 }

@@ -7,6 +7,10 @@ export async function up(knex: Knex): Promise<void> {
     table.date('fromDate').notNullable();
     table.date('toDate').notNullable();
     table
+      .string('type')
+      .notNullable()
+      .defaultTo('DAILY');
+    table
       .integer('creatorId')
       .references('id')
       .inTable('users')
