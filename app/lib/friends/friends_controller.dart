@@ -22,4 +22,8 @@ class FriendsController extends StateNotifier<FriendsState> {
     final friends = await this.friendsService.get();
     state = state.copyWith(friends: friends, isLoading: false);
   }
+
+  Future<void> refresh() async {
+    _load();
+  }
 }

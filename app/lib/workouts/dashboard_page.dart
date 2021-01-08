@@ -1,5 +1,7 @@
+import 'package:app/friends/friends_controller.dart';
 import 'package:app/models/workout.model.dart';
 import 'package:app/widgets/spinner.dart';
+import 'package:app/workouts/friends_progress.dart';
 import 'package:app/workouts/top_activities.dart';
 import 'package:app/workouts/yearly_progress_summary.dart';
 import 'package:flutter/material.dart';
@@ -15,18 +17,28 @@ class DashboardPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var workouts = useProvider(workoutsControllerProvider.state);
+    final workouts = useProvider(workoutsControllerProvider.state).workouts;
+    final isLoadingWorkouts =
+        useProvider(workoutsControllerProvider.state).isLoading;
 
-    return workouts.when(
-      loading: () => Center(child: Spinner()),
-      error: (e, stack) => Text(e.toString()),
-      data: (workouts) => body(workouts),
+    if (isLoadingWorkouts) {
+      return Spinner(text: 'Loading dashboard...');
+    }
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        await context.read(friendsControllerProvider).refresh();
+        await context.read(workoutsControllerProvider).refresh();
+      },
+      child: body(workouts),
     );
   }
 
   Widget body(List<Workout> workouts) {
     List<Widget> children = [
-      YearlyProgressSummary(workouts: workouts, target: 135),
+      // @TODO get target from settings
+      YearlyProgressSummary(workouts: workouts, target: 156),
+      FriendsProgress(),
       TopActivities(workouts: workouts),
     ];
 
