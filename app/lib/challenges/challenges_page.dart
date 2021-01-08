@@ -8,9 +8,13 @@ import 'package:hooks_riverpod/all.dart';
 class ChallengesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    return watch(challengesControllerProvider.state).when(
-        data: (challenges) => ChallengesList(challenges),
-        loading: () => Center(child: Spinner(text: 'Loading challenges...')),
-        error: (e, stack) => Text(e.toString()));
+    final isLoading = watch(challengesControllerProvider.state).isLoading;
+    final challenges = watch(challengesControllerProvider.state).challenges;
+
+    if (isLoading) {
+      return Spinner(text: 'Loading challenges...');
+    }
+
+    return ChallengesList(challenges);
   }
 }

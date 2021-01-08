@@ -2,6 +2,7 @@ import 'package:app/models/challenge.model.dart';
 import 'package:app/root/http_service.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:intl/intl.dart';
 
 final challengesServiceProvider = Provider<ChallengesService>((ref) {
   final httpService = ref.read(httpServiceProvider);
@@ -25,8 +26,27 @@ class ChallengesService {
     final challenges =
         results.map((data) => Challenge.fromJson(data)).toList(growable: true);
 
-    print("challenges: $challenges");
-
     return challenges;
+  }
+
+  Future<Challenge> add(Challenge challenge) async {
+    var data = challenge.toJson();
+
+    return this
+        ._httpService
+        .post('/challenges', data: data)
+        .then((response) => Challenge.fromJson(response.data));
+  }
+
+  toggleProgress(Challenge challenge, bool completed, DateTime date) async {
+    var data = {
+      'completed': completed,
+      'date': DateFormat('y-MM-dd').format(date),
+    };
+
+    return this
+        ._httpService
+        .post('/challenges/${challenge.id}/toggle-progress', data: data)
+        .then((response) => true);
   }
 }

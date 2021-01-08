@@ -1,26 +1,38 @@
+import 'package:app/challenges/challenges_state.dart';
 import 'package:app/models/challenge.model.dart';
 import 'package:hooks_riverpod/all.dart';
 
 import 'challenges_service.dart';
 
 final challengesControllerProvider =
-    StateNotifierProvider.autoDispose<ChallengesController>((ref) {
-  ref.maintainState = true;
-
+    StateNotifierProvider<ChallengesController>((ref) {
   final challengesService = ref.read(challengesServiceProvider);
 
   return ChallengesController(challengesService);
 });
 
-class ChallengesController extends StateNotifier<AsyncValue<List<Challenge>>> {
+class ChallengesController extends StateNotifier<ChallengesState> {
   final ChallengesService challengesService;
 
-  ChallengesController(this.challengesService) : super(AsyncValue.loading()) {
-    _load();
+  ChallengesController(this.challengesService)
+      : super(ChallengesState.initial()) {
+    _init();
   }
 
-  Future<void> _load() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => this.challengesService.get());
+  Future<void> _init() async {
+    state = state.copyWith(isLoading: true);
+    final challenges = await this.challengesService.get();
+    state = state.copyWith(challenges: challenges, isLoading: false);
+  }
+
+  Future<void> refresh() async {
+    return this._init();
+  }
+
+  void add(Challenge challenge) async {
+    state = state.copyWith(isLoading: true);
+    final createdChallenge = await this.challengesService.add(challenge);
+    state = state.copyWith(
+        challenges: [createdChallenge, ...state.challenges], isLoading: false);
   }
 }

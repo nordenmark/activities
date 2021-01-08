@@ -1,8 +1,9 @@
 import 'package:app/models/challenge.model.dart';
 import 'package:app/utils/styles.dart';
+import 'package:app/widgets/custom_text.dart';
+import 'package:app/workouts/progress_circle.dart';
 import 'package:flutter/material.dart';
-
-import 'single_challenge_page.dart';
+import 'package:jiffy/jiffy.dart';
 
 class ChallengeItem extends StatelessWidget {
   final Challenge challenge;
@@ -11,32 +12,40 @@ class ChallengeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      width: MediaQuery.of(context).size.width * 0.20,
-      height: MediaQuery.of(context).size.width * 0.20,
-      decoration: BoxDecoration(
-        color: Styles.overlayBgColor,
-        shape: BoxShape.circle,
-        border: new Border.all(
-          color: Styles.appPrimaryColor,
-          width: 4.5,
+    final String timeRemaining = _getTimeRemainingText(this.challenge.toDate);
+
+    return Row(
+      children: [
+        ProgressCircle(
+          progressPercent: 0.5,
+          width: 80,
+          height: 80,
+          baseColor: Styles.appDiscreteColor.withOpacity(0.4),
+          progressColor: this.challenge.id % 2 == 0 ? Colors.green : Colors.red,
         ),
-      ),
-      child: InkWell(
-        customBorder: CircleBorder(),
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  SingleChallengePage(challenge: this.challenge)));
-        },
-        child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              challenge.name,
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
-            )),
-      ),
+        SizedBox(width: 40),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomText(
+                challenge.name,
+                type: TextType.H7,
+              ),
+              CustomText(timeRemaining),
+            ],
+          ),
+        ),
+      ],
     );
+  }
+
+  String _getTimeRemainingText(DateTime toDate) {
+    final endOfLastDay = Jiffy(toDate)..endOf(Units.DAY);
+    final daysRemaining = endOfLastDay.diff(DateTime.now(), Units.DAY) + 1;
+
+    return '$daysRemaining days left';
   }
 }
