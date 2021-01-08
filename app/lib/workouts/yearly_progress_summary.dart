@@ -17,7 +17,7 @@ class YearlyProgressSummary extends StatelessWidget {
     final int daysElapsed = this._getDaysElapsed();
     final int targetWorkouts = this._getTargetWorkouts(daysElapsed);
     final int daysRemaining = this._getDaysRemaining();
-    final double progressPercent = this._getProgressPercent(targetWorkouts);
+    final double progressPercent = this._getProgressPercent();
 
     String encouragementText = '';
     Color progressColor;
@@ -78,12 +78,8 @@ class YearlyProgressSummary extends StatelessWidget {
     );
   }
 
-  double _getProgressPercent(int targetWorkouts) {
-    if (targetWorkouts == 0) {
-      return 0;
-    }
-
-    var progress = this.workouts.length / targetWorkouts;
+  double _getProgressPercent() {
+    var progress = this.workouts.length / this.target;
 
     if (progress.isNaN) {
       return 0;
