@@ -31,14 +31,17 @@ class TopActivities extends StatelessWidget {
     return list.sublist(0, min(count, list.length));
   }
 
-  int _getRoundedPercentage(int count, int totalCount) {
-    return (count / totalCount * 100).round();
-  }
-
   @override
   Widget build(BuildContext context) {
     List<MapEntry<String, int>> activities =
         this._getTopActivities(this.workouts, count: 3);
+
+    List<Widget> children = activities
+        .map((entry) => TopActivity(
+            count: entry.value,
+            title: entry.key,
+            totalCount: this.workouts.length))
+        .toList();
 
     return Container(
         // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -48,17 +51,25 @@ class TopActivities extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CustomText('Your top activities this year', type: TextType.H6),
-            SizedBox(height: 4),
-            Column(
-                children: activities.map((entry) {
-              return _activity(entry.value, entry.key);
-            }).toList()),
+            SizedBox(height: 8),
+            Column(children: children),
           ],
         ));
   }
+}
 
-  Widget _activity(int count, String activity) {
-    var percentage = _getRoundedPercentage(count, this.workouts.length);
+class TopActivity extends StatelessWidget {
+  final String title;
+  final int count;
+  final int totalCount;
+
+  const TopActivity({Key key, this.title, this.count, this.totalCount})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var percentage = (this.count / this.totalCount * 100).round();
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -70,10 +81,10 @@ class TopActivities extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 12.0),
-                  child: Icon(IconHelper.iconFromActivity(activity),
+                  child: Icon(IconHelper.iconFromActivity(this.title),
                       size: 30, color: Styles.lightSlateGray),
                 ),
-                CustomText(activity,
+                CustomText(this.title,
                     type: TextType.SUBTITLE1,
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
