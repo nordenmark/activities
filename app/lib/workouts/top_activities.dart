@@ -50,7 +50,7 @@ class TopActivities extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CustomText('Your top activities this year', type: TextType.H6),
+            CustomText('Your top activities this year', type: TextType.H7),
             SizedBox(height: 8),
             Column(children: children),
           ],
@@ -71,7 +71,7 @@ class TopActivity extends StatelessWidget {
     var percentage = (this.count / this.totalCount * 100).round();
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 6),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

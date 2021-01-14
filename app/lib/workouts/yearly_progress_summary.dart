@@ -50,7 +50,7 @@ class YearlyProgressSummary extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText('Your workout summary', type: TextType.H6),
+              CustomText('Your workout summary', type: TextType.H7),
               SizedBox(height: 8),
               RichText(
                   text: TextSpan(style: Styles.discreteStyle, children: [

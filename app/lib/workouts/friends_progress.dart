@@ -33,7 +33,7 @@ class FriendsProgress extends HookWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText('You and your friends', type: TextType.H6),
+        CustomText('You and your friends', type: TextType.H7),
         SizedBox(height: 12),
         HorizontalBarChart(entries),
       ],

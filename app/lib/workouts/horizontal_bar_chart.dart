@@ -54,6 +54,7 @@ class HorizontalBar extends AnimatedWidget {
   final int count;
   final Color color;
   final Animation controller;
+  final double barHeight = 18;
 
   HorizontalBar({Key key, this.label, this.count, this.color, this.controller})
       : super(key: key, listenable: controller);
@@ -74,7 +75,7 @@ class HorizontalBar extends AnimatedWidget {
   Widget build(BuildContext context) {
     List<Widget> leftChildren = [
       Container(
-        height: 24,
+        height: this.barHeight,
         decoration: leftDecoration.copyWith(
           color: Colors.red[50],
         ),
@@ -88,7 +89,7 @@ class HorizontalBar extends AnimatedWidget {
 
     List<Widget> rightChildren = [
       Container(
-        height: 24,
+        height: this.barHeight,
         decoration: rightDecoration.copyWith(
           color: Colors.green[50],
         ),
@@ -109,8 +110,8 @@ class HorizontalBar extends AnimatedWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(label, type: TextType.H7),
-        SizedBox(height: 6),
+        CustomText(label, type: TextType.SUBTITLE2),
+        SizedBox(height: 4),
         Row(children: [Expanded(child: left), Expanded(child: right)])
       ],
     );
@@ -123,7 +124,7 @@ class HorizontalBar extends AnimatedWidget {
     return FractionallySizedBox(
       widthFactor: this._getWidthFactorFromCount(count) * animation,
       child: Container(
-        height: 24,
+        height: this.barHeight,
         decoration: decoration,
       ),
     );
@@ -148,6 +149,7 @@ class HorizontalBar extends AnimatedWidget {
     } else {
       return Positioned(
           right: 10,
+          top: 0,
           child: Text(this.count.toString(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
