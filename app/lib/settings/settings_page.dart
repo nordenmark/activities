@@ -3,6 +3,8 @@ import 'package:app/friends/friends_screen.dart';
 import 'package:app/settings/settings_group.dart';
 import 'package:app/settings/settings_item.dart';
 import 'package:app/settings/settings_user_card.dart';
+import 'package:app/widgets/tab_item.dart';
+import 'package:app/widgets/tab_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,29 +40,20 @@ class SettingsPage extends HookWidget {
       )
     ];
 
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.all(8),
-      itemCount: children.length,
-      itemBuilder: (BuildContext context, int index) {
-        var child = children[index];
+    return TabScreen(
+        appBar: AppBar(title: Text('SETTINGS')),
+        tabItem: TabItem.more,
+        body: ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.all(8),
+          itemCount: children.length,
+          itemBuilder: (BuildContext context, int index) {
+            var child = children[index];
 
-        return child;
-      },
-      separatorBuilder: (BuildContext context, int index) =>
-          const Divider(height: 15.0, color: Colors.transparent),
-    );
-
-    // return CustomScrollView(slivers: <Widget>[
-    //   SliverList(
-    //     delegate: SliverChildListDelegate([
-    //       SettingsUserCard(authState.user),
-    //       Padding(
-    //         padding: EdgeInsets.symmetric(vertical: 10),
-    //       ),
-
-    //     ]),
-    //   )
-    // ]);
+            return child;
+          },
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(height: 15.0, color: Colors.transparent),
+        ));
   }
 }
