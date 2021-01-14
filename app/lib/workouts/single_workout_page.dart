@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 final activitiesProvider = Provider<Set<String>>((ref) {
-  final workouts = ref.watch(workoutsControllerProvider.state).workouts;
+  final workouts = ref.watch(workoutsForYearProvider(DateTime.now().year));
 
   return Set<String>.from(workouts.map((workout) => workout.activity));
 });
