@@ -21,11 +21,13 @@ class CustomText extends StatelessWidget {
   final TextType type;
   final TextStyle style;
   final TextOverflow overflow;
+  final TextAlign align;
 
   CustomText(this.text,
       {this.type = TextType.BODY,
       this.style = const TextStyle(),
-      this.overflow});
+      this.overflow,
+      this.align = TextAlign.left});
 
   final Map<TextType, TextStyle> mapping = {
     TextType.H1: TextStyle(fontSize: 96, fontWeight: FontWeight.w300),
@@ -47,6 +49,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     var style = mapping[this.type].merge(this.style);
 
-    return Text(this.text, style: style, overflow: this.overflow);
+    return Text(this.text,
+        textAlign: this.align, style: style, overflow: this.overflow);
   }
 }
