@@ -1,10 +1,7 @@
-import 'package:app/models/workout.model.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutActivities extends StatelessWidget {
-  final List<Workout> workouts;
-
-  WorkoutActivities(this.workouts);
+  WorkoutActivities();
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,13 @@ final workoutsControllerProvider =
   return WorkoutsController(workoutsService);
 });
 
+final workoutsForYearProvider =
+    Provider.family<List<Workout>, int>((ref, year) {
+  final workouts = ref.watch(workoutsControllerProvider.state).workouts;
+
+  return workouts.where((workout) => workout.date.year == year).toList();
+});
+
 class WorkoutsController extends StateNotifier<WorkoutsState> {
   final WorkoutsService workoutsService;
 

@@ -19,14 +19,15 @@ class DashboardPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workouts = useProvider(workoutsControllerProvider.state).workouts;
+    final List<Workout> workouts =
+        useProvider(workoutsForYearProvider(DateTime.now().year));
     final isLoadingWorkouts =
         useProvider(workoutsControllerProvider.state).isLoading;
 
     List<Widget> children = [
       // @TODO get target from settings
       YearlyProgressSummary(workouts: workouts, target: 156),
-      FriendsProgress(),
+      FriendsProgress(workouts: workouts),
       TopActivities(workouts: workouts),
     ];
 

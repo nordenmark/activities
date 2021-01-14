@@ -40,11 +40,6 @@ export class WorkoutsController {
     return this.workoutsService.update(id, date, activity);
   }
 
-  @Get('/:id')
-  getWorkout() {
-    return {};
-  }
-
   @Delete('/:id')
   deleteWorkout(@Param('id') id: number) {
     return this.workoutsService.delete(id);

@@ -1,16 +1,15 @@
+import 'package:app/widgets/spinner.dart';
 import 'package:app/widgets/tab_item.dart';
 import 'package:app/widgets/tab_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
 
 import 'single_workout_page.dart';
 import 'workout_activities.dart';
 import 'workout_graph.dart';
 import 'workout_list.dart';
-import 'workouts_controller.dart';
 
 class WorkoutsPage extends HookWidget {
   WorkoutsPage();
@@ -20,8 +19,6 @@ class WorkoutsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workouts = useProvider(workoutsControllerProvider.state).workouts;
-
     PageController pageController = usePageController();
 
     return TabScreen(
@@ -43,9 +40,9 @@ class WorkoutsPage extends HookWidget {
                 );
               })),
       body: PageView(controller: pageController, children: [
-        WorkoutList(workouts),
-        WorkoutGraph(workouts),
-        WorkoutActivities(workouts),
+        WorkoutList(),
+        WorkoutGraph(),
+        WorkoutActivities(),
       ]),
       fab: FloatingActionButton(
           child: Icon(Icons.add),

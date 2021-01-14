@@ -28,7 +28,6 @@ export class WorkoutsService {
   async getForUser(id: number): Promise<WorkoutModel[]> {
     return this.workoutModel
       .query()
-      .modify('filterThisYear')
       .where({ userId: id })
       .orderBy('date', 'desc');
   }

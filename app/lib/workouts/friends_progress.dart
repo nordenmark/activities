@@ -1,5 +1,6 @@
 import 'package:app/auth/auth_controller.dart';
 import 'package:app/friends/friends_controller.dart';
+import 'package:app/models/workout.model.dart';
 import 'package:app/widgets/custom_text.dart';
 import 'package:app/workouts/workouts_controller.dart';
 import 'package:flutter/material.dart';
@@ -10,17 +11,20 @@ import 'package:jiffy/jiffy.dart';
 import 'horizontal_bar_chart.dart';
 
 class FriendsProgress extends HookWidget {
+  final List<Workout> workouts;
+
+  FriendsProgress({this.workouts});
+
   @override
   Widget build(BuildContext context) {
     var friends = useProvider(friendsControllerProvider.state).friends;
     var user = useProvider(authControllerProvider.state).user;
-    var workouts = useProvider(workoutsControllerProvider.state).workouts;
 
     List<BarChartEntry> entries = [];
 
     // Me
     // @TODO get target from settings
-    int diff = workouts.length - this._getTargetForToday(156);
+    int diff = this.workouts.length - this._getTargetForToday(156);
     entries.add(BarChartEntry(user.name, diff));
 
     // Friends
