@@ -1,7 +1,7 @@
 import 'package:app/challenges/challenges_page.dart';
 import 'package:app/settings/settings_page.dart';
 import 'package:app/utils/styles.dart';
-import 'package:app/workouts/dashboard_page.dart';
+import 'package:app/dashboard/dashboard_page.dart';
 import 'package:app/workouts/workouts_page.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,6 @@ class WorkoutsBottomNavigationBar extends StatelessWidget {
           return;
         }
 
-        print("on tap! ${TabItem.values[index]}");
         Navigator.of(context).pushReplacement(PageRouteBuilder(
             transitionDuration: Duration(seconds: 0),
             pageBuilder: (context, _, __) =>

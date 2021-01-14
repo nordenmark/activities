@@ -1,6 +1,6 @@
 import 'package:app/auth/auth_controller.dart';
 import 'package:app/login/login_screen.dart';
-import 'package:app/workouts/dashboard_page.dart';
+import 'package:app/dashboard/dashboard_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

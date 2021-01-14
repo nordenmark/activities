@@ -1,6 +1,5 @@
 import 'package:app/challenges/challenges_controller.dart';
 import 'package:app/challenges/challenges_list.dart';
-import 'package:app/widgets/spinner.dart';
 import 'package:app/widgets/tab_item.dart';
 import 'package:app/widgets/tab_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,13 +17,11 @@ class ChallengesPage extends HookWidget {
     final challenges =
         useProvider(challengesControllerProvider.state).challenges;
 
-    if (isLoading) {
-      return Spinner(text: 'Loading challenges...');
-    }
-
     return TabScreen(
         appBar: AppBar(title: Text('CHALLENGES')),
         tabItem: TabItem.challenges,
+        isLoading: isLoading,
+        isLoadingText: 'Loading challenges...',
         fab: FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () {

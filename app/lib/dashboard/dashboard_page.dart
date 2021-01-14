@@ -23,20 +23,6 @@ class DashboardPage extends HookWidget {
     final isLoadingWorkouts =
         useProvider(workoutsControllerProvider.state).isLoading;
 
-    if (isLoadingWorkouts) {
-      return Spinner(text: 'Loading dashboard...');
-    }
-
-    return RefreshIndicator(
-      onRefresh: () async {
-        await context.read(friendsControllerProvider).refresh();
-        await context.read(workoutsControllerProvider).refresh();
-      },
-      child: body(workouts),
-    );
-  }
-
-  Widget body(List<Workout> workouts) {
     List<Widget> children = [
       // @TODO get target from settings
       YearlyProgressSummary(workouts: workouts, target: 156),
@@ -44,19 +30,28 @@ class DashboardPage extends HookWidget {
       TopActivities(workouts: workouts),
     ];
 
+    ListView dashboardList = ListView.separated(
+      padding: EdgeInsets.all(8),
+      separatorBuilder: (BuildContext context, int index) =>
+          const Divider(height: 15.0, color: Colors.transparent),
+      itemCount: children.length,
+      itemBuilder: (BuildContext context, int index) {
+        var child = children[index];
+
+        return DashboardCard(child: child);
+      },
+    );
+
     return TabScreen(
         appBar: AppBar(title: Text('DASHBOARD')),
         tabItem: TabItem.dashboard,
-        body: ListView.separated(
-          padding: EdgeInsets.all(8),
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(height: 15.0, color: Colors.transparent),
-          itemCount: children.length,
-          itemBuilder: (BuildContext context, int index) {
-            var child = children[index];
-
-            return DashboardCard(child: child);
-          },
-        ));
+        isLoading: isLoadingWorkouts,
+        isLoadingText: 'Loading dashboard...',
+        body: RefreshIndicator(
+            onRefresh: () async {
+              await context.read(friendsControllerProvider).refresh();
+              await context.read(workoutsControllerProvider).refresh();
+            },
+            child: dashboardList));
   }
 }
