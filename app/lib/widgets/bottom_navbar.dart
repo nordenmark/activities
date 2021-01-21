@@ -43,7 +43,6 @@ class WorkoutsBottomNavigationBar extends StatelessWidget {
             transitionDuration: Duration(seconds: 0),
             pageBuilder: (context, _, __) =>
                 this.widgetsMap[TabItem.values[index]]));
-        // selectedTab.state = TabItem.values[index];
       },
     );
   }

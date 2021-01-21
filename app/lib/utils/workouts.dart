@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app/models/workout.model.dart';
 import 'package:app/utils/dates.dart';
 
@@ -18,5 +20,24 @@ class WorkoutHelpers {
     });
 
     return map;
+  }
+
+  static List<MapEntry<String, int>> getCountPerActivity(List<Workout> workouts,
+      {int count = 10}) {
+    Map<String, int> countMap = Map();
+
+    workouts.forEach((workout) {
+      if (!countMap.containsKey(workout.activity)) {
+        countMap[workout.activity] = 0;
+      }
+
+      countMap[workout.activity]++;
+    });
+
+    var list = countMap.entries.toList();
+
+    list.sort((a, b) => b.value - a.value);
+
+    return list.sublist(0, min(count, list.length));
   }
 }

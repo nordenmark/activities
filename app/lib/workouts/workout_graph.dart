@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:app/models/workout.model.dart';
 import 'package:app/utils/workouts.dart';
 import 'package:app/widgets/bar_chart.dart';
 import 'package:app/widgets/spinner.dart';
-import 'package:app/widgets/tag_cloud.dart';
+import 'package:app/widgets/year_selector.dart';
 import 'package:app/workouts/workouts_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,20 +31,11 @@ class WorkoutGraph extends HookWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text('Show year:'),
-              SizedBox(width: 8),
-              Container(
-                child: TagCloud(
-                    tags: this._getYears(),
-                    selected: selectedYear.toString(),
-                    onSelected: (String year) {
-                      context.read(selectedYearProvider).state =
-                          int.parse(year);
-                    }),
-              ),
-            ],
+          YearSelector(
+            selectedYear: selectedYear,
+            onSelected: (int year) {
+              context.read(selectedYearProvider).state = year;
+            },
           ),
           Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -60,15 +49,5 @@ class WorkoutGraph extends HookWidget {
     return map.entries
         .map((entry) => BarChartEntry(entry.key, entry.value))
         .toList();
-  }
-
-  List<String> _getYears() {
-    final int from = DateTime.now().year;
-    final int to = 2020;
-
-    var list =
-        List.generate(from - to + 1, (index) => (from - index).toString());
-
-    return list.sublist(0, min(3, list.length));
   }
 }

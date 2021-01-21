@@ -1,4 +1,3 @@
-import 'package:app/widgets/spinner.dart';
 import 'package:app/widgets/tab_item.dart';
 import 'package:app/widgets/tab_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +18,10 @@ class WorkoutsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    PageController pageController = usePageController();
+    ValueNotifier<int> selectedPage = useState(0);
+
+    PageController pageController =
+        usePageController(initialPage: selectedPage.value);
 
     return TabScreen(
       appBar: AppBar(
@@ -31,25 +33,37 @@ class WorkoutsPage extends HookWidget {
                 }
 
                 return WorkoutsPageAppBar(
-                  titles: ['List', 'Graph', 'Activities'],
+                  titles: [
+                    'List',
+                    'Graph',
+                    'Activities',
+                  ],
                   onPageSelected: (int index) {
+                    selectedPage.value = index;
                     pageController.animateToPage(index,
                         curve: this._curve, duration: this._duration);
                   },
                   pageController: pageController,
                 );
               })),
-      body: PageView(controller: pageController, children: [
-        WorkoutList(),
-        WorkoutGraph(),
-        WorkoutActivities(),
-      ]),
-      fab: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SingleWorkoutPage()));
-          }),
+      body: PageView(
+          controller: pageController,
+          onPageChanged: (int index) {
+            selectedPage.value = index;
+          },
+          children: [
+            WorkoutList(),
+            WorkoutGraph(),
+            WorkoutActivities(),
+          ]),
+      fab: selectedPage.value != 0
+          ? null
+          : FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SingleWorkoutPage()));
+              }),
       tabItem: TabItem.workouts,
     );
   }

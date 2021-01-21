@@ -5,11 +5,12 @@ class ColorPalette {
     Colors.pink,
     Colors.green,
     Colors.blue,
-    Colors.red,
-    Colors.indigo,
-    Colors.orange,
     Colors.teal,
-    Colors.purple
+    Colors.purple,
+    Colors.red,
+    Colors.black,
+    Colors.orange,
+    Colors.indigo,
   ];
 
   static Color get(int index) {

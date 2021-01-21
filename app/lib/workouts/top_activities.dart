@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:app/models/workout.model.dart';
 import 'package:app/utils/icons.dart';
 import 'package:app/utils/styles.dart';
+import 'package:app/utils/workouts.dart';
 import 'package:app/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,29 +11,10 @@ class TopActivities extends StatelessWidget {
 
   TopActivities({this.workouts});
 
-  List<MapEntry<String, int>> _getTopActivities(List<Workout> workouts,
-      {int count = 10}) {
-    Map<String, int> countMap = Map();
-
-    workouts.forEach((workout) {
-      if (!countMap.containsKey(workout.activity)) {
-        countMap[workout.activity] = 0;
-      }
-
-      countMap[workout.activity]++;
-    });
-
-    var list = countMap.entries.toList();
-
-    list.sort((a, b) => b.value - a.value);
-
-    return list.sublist(0, min(count, list.length));
-  }
-
   @override
   Widget build(BuildContext context) {
     List<MapEntry<String, int>> activities =
-        this._getTopActivities(this.workouts, count: 3);
+        WorkoutHelpers.getCountPerActivity(this.workouts, count: 3);
 
     List<Widget> children = activities
         .map((entry) => TopActivity(
