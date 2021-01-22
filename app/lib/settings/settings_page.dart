@@ -1,10 +1,9 @@
 import 'package:app/auth/auth_controller.dart';
-import 'package:app/friends/friends_screen.dart';
 import 'package:app/settings/settings_group.dart';
 import 'package:app/settings/settings_item.dart';
-import 'package:app/settings/settings_user_card.dart';
 import 'package:app/widgets/tab_item.dart';
 import 'package:app/widgets/tab_screen.dart';
+import 'package:app/widgets/user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,17 +18,9 @@ class SettingsPage extends HookWidget {
     final authState = useProvider(authControllerProvider.state);
 
     List<Widget> children = [
-      SettingsUserCard(authState.user),
+      UserCard(user: authState.user),
       SettingsGroup(
         [
-          SettingsItem(
-            label: 'Friends',
-            onPress: () {
-              return Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => FriendsScreen()));
-            },
-            icon: FlutterIcons.users_ent,
-          ),
           SettingsItem(
               label: 'Log out',
               onPress: () async {

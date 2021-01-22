@@ -1,4 +1,5 @@
 import 'package:app/challenges/challenges_page.dart';
+import 'package:app/friends/friends_page.dart';
 import 'package:app/settings/settings_page.dart';
 import 'package:app/utils/styles.dart';
 import 'package:app/dashboard/dashboard_page.dart';
@@ -17,6 +18,7 @@ class WorkoutsBottomNavigationBar extends StatelessWidget {
     TabItem.dashboard: DashboardPage(),
     TabItem.workouts: WorkoutsPage(),
     TabItem.challenges: ChallengesPage(),
+    TabItem.friends: FriendsPage(),
     TabItem.more: SettingsPage(),
   };
 
@@ -30,6 +32,7 @@ class WorkoutsBottomNavigationBar extends StatelessWidget {
         _buildItem(TabItem.dashboard),
         _buildItem(TabItem.workouts),
         _buildItem(TabItem.challenges),
+        _buildItem(TabItem.friends),
         _buildItem(TabItem.more),
       ],
       currentIndex: TabItem.values.indexOf(this.selectedTab),

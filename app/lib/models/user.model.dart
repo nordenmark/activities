@@ -21,6 +21,16 @@ class User {
     };
   }
 
+  getInitials() {
+    List<String> parts = name.split(' ').map((part) => part[0]).toList();
+
+    if (parts.length > 2) {
+      return "${parts[0]}${parts[1]}";
+    }
+
+    return parts.join('');
+  }
+
   String toString() {
     return 'id=${this.id}, name=${this.name}, email=${this.email}';
   }

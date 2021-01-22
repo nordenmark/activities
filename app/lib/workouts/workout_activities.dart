@@ -45,11 +45,11 @@ class WorkoutActivities extends HookWidget {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.all(80.0),
+        padding: const EdgeInsets.all(100.0),
         child: DonutChart(entries: entries),
       ),
       Padding(
-        padding: const EdgeInsets.only(left: 50.0, right: 50.0, bottom: 50.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50.0),
         child: ChartLegend(
           entries: entries,
         ),

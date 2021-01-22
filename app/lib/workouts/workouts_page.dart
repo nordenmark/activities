@@ -48,6 +48,7 @@ class WorkoutsPage extends HookWidget {
               })),
       body: PageView(
           controller: pageController,
+          physics: NeverScrollableScrollPhysics(),
           onPageChanged: (int index) {
             selectedPage.value = index;
           },

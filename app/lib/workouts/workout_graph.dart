@@ -39,7 +39,7 @@ class WorkoutGraph extends HookWidget {
           ),
           Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: BarChart(height: 300, entries: entries)),
+              child: BarChart(height: 450, entries: entries)),
         ],
       ),
     );

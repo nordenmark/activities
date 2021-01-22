@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-enum TabItem { dashboard, workouts, challenges, more }
+enum TabItem { dashboard, workouts, challenges, friends, more }
 
 class TabItemData {
   const TabItemData({@required this.title, @required this.icon, activeIcon})
@@ -26,6 +26,8 @@ class TabItemData {
       title: 'Challenges',
       icon: MaterialCommunityIcons.dumbbell,
     ),
+    TabItem.friends: TabItemData(
+        title: 'Friends', icon: MaterialCommunityIcons.account_group),
     TabItem.more: TabItemData(
       title: 'More',
       icon: MaterialCommunityIcons.menu,
