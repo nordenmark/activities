@@ -1,6 +1,5 @@
 import 'package:app/friends/friends_controller.dart';
 import 'package:app/models/workout.model.dart';
-import 'package:app/widgets/spinner.dart';
 import 'package:app/widgets/tab_item.dart';
 import 'package:app/widgets/tab_screen.dart';
 import 'package:app/workouts/friends_progress.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:app/workouts/workouts_controller.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'dashboard_card.dart';
 
@@ -21,8 +20,7 @@ class DashboardPage extends HookWidget {
   Widget build(BuildContext context) {
     final List<Workout> workouts =
         useProvider(workoutsForYearProvider(DateTime.now().year));
-    final isLoadingWorkouts =
-        useProvider(workoutsControllerProvider.state).isLoading;
+    final isLoadingWorkouts = useProvider(workoutsControllerProvider).isLoading;
 
     List<Widget> children = [
       // @TODO get target from settings
@@ -50,8 +48,8 @@ class DashboardPage extends HookWidget {
         isLoadingText: 'Loading dashboard...',
         body: RefreshIndicator(
             onRefresh: () async {
-              await context.read(friendsControllerProvider).refresh();
-              await context.read(workoutsControllerProvider).refresh();
+              await context.read(friendsControllerProvider.notifier).refresh();
+              await context.read(workoutsControllerProvider.notifier).refresh();
             },
             child: dashboardList));
   }

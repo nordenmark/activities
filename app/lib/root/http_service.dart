@@ -1,6 +1,6 @@
 import 'package:app/config/configuration.dart';
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'jwt_interceptor.dart';
 

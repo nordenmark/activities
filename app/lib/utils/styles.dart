@@ -49,6 +49,11 @@ class Styles {
             splashColor: Styles.appDiscreteColor,
             textTheme: ButtonTextTheme.primary,
           ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          primary: Styles.appPrimaryColor,
+        ),
+      ),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(primary: Styles.appPrimaryColor)),
       textTheme: GoogleFonts.openSansTextTheme(textTheme).apply(

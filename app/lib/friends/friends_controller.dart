@@ -1,10 +1,10 @@
 import 'package:app/friends/friends_service.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'friends_state.dart';
 
 final friendsControllerProvider =
-    StateNotifierProvider<FriendsController>((ref) {
+    StateNotifierProvider<FriendsController, FriendsState>((ref) {
   final friendsService = ref.read(friendsServiceProvider);
 
   return FriendsController(friendsService);

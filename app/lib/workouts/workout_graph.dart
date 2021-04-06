@@ -6,7 +6,7 @@ import 'package:app/widgets/year_selector.dart';
 import 'package:app/workouts/workouts_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final selectedYearProvider = StateProvider<int>((ref) => DateTime.now().year);
 
@@ -18,10 +18,10 @@ class WorkoutGraph extends HookWidget {
     final selectedYear = useProvider(selectedYearProvider).state;
     final List<Workout> workouts =
         useProvider(workoutsForYearProvider(selectedYear));
-    final countPerMonth = WorkoutHelpers.getCountPerMonth(workouts);
+    final countPerMonth = WorkoutHelpers.getCountPerMonth([...workouts]);
     final entries = this._getBarChartEntries(countPerMonth);
 
-    final isLoading = useProvider(workoutsControllerProvider.state).isLoading;
+    final isLoading = useProvider(workoutsControllerProvider).isLoading;
 
     if (isLoading) {
       return Center(child: Spinner(text: 'Loading workouts...'));

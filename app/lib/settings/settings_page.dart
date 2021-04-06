@@ -9,13 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingsPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final authController = useProvider(authControllerProvider);
-    final authState = useProvider(authControllerProvider.state);
+    final authController = useProvider(authControllerProvider.notifier);
+    final authState = useProvider(authControllerProvider);
 
     List<Widget> children = [
       UserCard(user: authState.user),

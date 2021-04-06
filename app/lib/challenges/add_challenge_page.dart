@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'add_challenge_form.dart';
 import 'challenges_controller.dart';
@@ -20,7 +20,9 @@ class AddChallengePage extends HookWidget {
                 isLoading: isLoading.value,
                 onSubmit: (challenge) {
                   isLoading.value = true;
-                  context.read(challengesControllerProvider).add(challenge);
+                  context
+                      .read(challengesControllerProvider.notifier)
+                      .add(challenge);
                   isLoading.value = false;
 
                   Navigator.of(context).pop();

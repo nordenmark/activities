@@ -2,10 +2,11 @@ import 'package:app/auth/auth_state.dart';
 import 'package:app/auth/tokens.dart';
 import 'package:app/models/user.model.dart';
 import 'package:app/storage/storage_service.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final authControllerProvider = StateNotifierProvider<AuthController>((ref) {
-  final storageService = ref.read(storageServiceProvider);
+final authControllerProvider =
+    StateNotifierProvider<AuthController, AuthState>((ref) {
+  final StorageService storageService = ref.read(storageServiceProvider);
 
   return AuthController(storageService);
 });

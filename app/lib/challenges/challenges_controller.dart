@@ -1,15 +1,12 @@
 import 'package:app/challenges/challenges_state.dart';
 import 'package:app/models/challenge.model.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'challenges_service.dart';
 
 final challengesControllerProvider =
-    StateNotifierProvider<ChallengesController>((ref) {
-  final challengesService = ref.read(challengesServiceProvider);
-
-  return ChallengesController(challengesService);
-});
+    StateNotifierProvider<ChallengesController, ChallengesState>(
+        (ref) => ChallengesController(ref.read(challengesServiceProvider)));
 
 class ChallengesController extends StateNotifier<ChallengesState> {
   final ChallengesService challengesService;

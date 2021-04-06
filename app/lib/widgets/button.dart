@@ -22,15 +22,18 @@ class Button extends StatelessWidget {
         : EdgeInsets.symmetric(horizontal: 20, vertical: 30);
 
     if (this.type == ButtonType.DANGER) {
-      return FlatButton(
-        onPressed: this.onPressed,
-        child: Text(this.label),
-        textColor: Colors.red,
-      );
+      return TextButton(
+          onPressed: this.onPressed,
+          child: Text(this.label),
+          style: TextButton.styleFrom(
+            primary: Colors.red,
+          ));
     }
 
-    return RaisedButton(
-        padding: padding,
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: padding,
+        ),
         onPressed: this.onPressed,
         child: Text(
           this.label,

@@ -3,13 +3,13 @@ import 'package:app/auth/auth_service.dart';
 import 'package:app/login/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final authService = useProvider(authServiceProvider);
-    final authController = useProvider(authControllerProvider);
+    final authController = useProvider(authControllerProvider.notifier);
     final isLoading = useState(false);
     final errorMessage = useState('');
 

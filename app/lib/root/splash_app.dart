@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SplashApp extends StatefulHookWidget {
   final VoidCallback onInitializationComplete;
@@ -30,7 +30,7 @@ class _SplashAppState extends State<SplashApp> {
   }
 
   Future<void> _initializeAsyncDependencies() async {
-    final authController = context.read(authControllerProvider);
+    final authController = context.read(authControllerProvider.notifier);
     final storageService = context.read(storageServiceProvider);
 
     Token accessToken = await storageService.getAccessToken();

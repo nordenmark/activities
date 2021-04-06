@@ -1,7 +1,7 @@
 import 'package:app/models/challenge.model.dart';
 import 'package:app/root/http_service.dart';
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 final challengesServiceProvider = Provider<ChallengesService>((ref) {

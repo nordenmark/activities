@@ -6,16 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'add_challenge_page.dart';
 
 class ChallengesPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final isLoading = useProvider(challengesControllerProvider.state).isLoading;
-    final challenges =
-        useProvider(challengesControllerProvider.state).challenges;
+    final isLoading = useProvider(challengesControllerProvider).isLoading;
+    final challenges = useProvider(challengesControllerProvider).challenges;
 
     return TabScreen(
         appBar: AppBar(title: Text('CHALLENGES')),

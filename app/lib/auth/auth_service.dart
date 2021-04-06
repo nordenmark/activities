@@ -2,7 +2,7 @@ import 'package:app/auth/tokens.dart';
 import 'package:app/models/user.model.dart';
 import 'package:app/root/http_service.dart';
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Credentials {
   final String email;

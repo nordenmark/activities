@@ -4,7 +4,7 @@ import 'package:app/workouts/workouts_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final activitiesProvider = Provider<Set<String>>((ref) {
   final workouts = ref.watch(workoutsForYearProvider(DateTime.now().year));
@@ -34,17 +34,19 @@ class SingleWorkoutPage extends HookWidget {
               onSave: ({DateTime date, String activity}) {
                 if (this.workout == null) {
                   context
-                      .read(workoutsControllerProvider)
+                      .read(workoutsControllerProvider.notifier)
                       .add(Workout(activity: activity, date: date));
                 } else {
                   context
-                      .read(workoutsControllerProvider)
+                      .read(workoutsControllerProvider.notifier)
                       .update(this.workout.id, activity, date);
                 }
                 Navigator.of(context).pop();
               },
               onDelete: (Workout workout) {
-                context.read(workoutsControllerProvider).delete(workout.id);
+                context
+                    .read(workoutsControllerProvider.notifier)
+                    .delete(workout.id);
                 Navigator.of(context).pop();
               })),
     );

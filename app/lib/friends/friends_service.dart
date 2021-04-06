@@ -1,7 +1,7 @@
 import 'package:app/models/friend.model.dart';
 import 'package:app/root/http_service.dart';
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final friendsServiceProvider = Provider<FriendsService>((ref) {
   final httpService = ref.read(httpServiceProvider);

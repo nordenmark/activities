@@ -5,7 +5,7 @@ import 'package:app/workouts/workouts_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkoutList extends HookWidget {
   WorkoutList();
@@ -14,7 +14,7 @@ class WorkoutList extends HookWidget {
   Widget build(BuildContext context) {
     final List<Workout> workouts =
         useProvider(workoutsForYearProvider(DateTime.now().year));
-    final isLoading = useProvider(workoutsControllerProvider.state).isLoading;
+    final isLoading = useProvider(workoutsControllerProvider).isLoading;
 
     if (isLoading) {
       return Center(child: Spinner(text: 'Loading workouts...'));
