@@ -32,6 +32,13 @@ export class WorkoutsService {
       .orderBy('date', 'desc');
   }
 
+  async getForUsers(userIds: number[]): Promise<WorkoutModel[]> {
+    return this.workoutModel
+      .query()
+      .whereIn('userId', userIds)
+      .orderBy('date', 'desc');
+  }
+
   async delete(id: number): Promise<boolean> {
     return this.workoutModel
       .query()

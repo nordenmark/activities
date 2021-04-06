@@ -1,6 +1,8 @@
 import { User } from '#app/auth/auth.interfaces';
 import { JwtAuthGuard } from '#app/auth/jwt-auth.guard';
 import { AuthedUser } from '#app/auth/user.decorator';
+import { FriendsService } from '#app/friends/friends.service';
+import { WorkoutModel } from '#app/models/workout.model';
 import {
   Body,
   Controller,
@@ -17,11 +19,25 @@ import { WorkoutsService } from './workouts.service';
 @Controller('workouts')
 @UseGuards(JwtAuthGuard)
 export class WorkoutsController {
-  constructor(private readonly workoutsService: WorkoutsService) {}
+  constructor(
+    private readonly workoutsService: WorkoutsService,
+    private readonly friendsService: FriendsService,
+  ) {}
 
   @Get()
   getWorkouts(@AuthedUser() user: User) {
     return this.workoutsService.getForUser(user.id);
+  }
+
+  @Get('/for-friends')
+  async getWorkoutsForFriends(
+    @AuthedUser() user: User,
+  ): Promise<WorkoutModel[]> {
+    const friends = await this.friendsService.getForUser(user.id);
+
+    const friendIds = friends.map(({ id }) => id);
+
+    return this.workoutsService.getForUsers(friendIds);
   }
 
   @Post()
