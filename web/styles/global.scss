@@ -1,0 +1,119 @@
+@import './variables.scss';
+
+:root {
+  --border-color: rgb(211, 219, 235);
+  --font-family-headings: 'Montserrat', sans-serif;
+  --font-family-body: 'Quicksand', sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-family-body);
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:visited {
+    text-decoration: none;
+  }
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.wrapper {
+  padding: 10px 20px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-family-headings);
+}
+
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 28px;
+
+}
+
+button {
+  background-color: $primary-color;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+
+  &[disabled] {
+    background-color: gray;
+  }
+}
+
+.page-title {
+  display: flex;
+  margin-bottom: 14px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form {
+  width: 100%;
+}
+
+.form input {
+  padding: 4px;
+  font-size: 18px;
+  font-family: var(--font-family-body);
+  width: 100%;
+  border: 2px solid $border-color;
+}
+
+.form button {
+  font-size: 18px;
+  font-family: var(--font-family-body);
+}
+
+.form .form-group {
+  margin-bottom: 10px;
+}
+
+.form .form-group .form-label {
+  display: block;
+}
+
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  .tag {
+    border: 2px solid $primary-color;
+    display: inline-flex;
+    margin: 0 6px 6px 0;
+    padding: 4px 8px;
+  }
+}
