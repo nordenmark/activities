@@ -1,7 +1,7 @@
 import 'package:app/models/workout.model.dart';
 import 'package:app/root/http_service.dart';
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkoutsService {
   final Dio _httpService;
@@ -12,6 +12,21 @@ class WorkoutsService {
     final workoutsJson = await this
         ._httpService
         .get('/workouts')
+        .then((response) => response.data);
+
+    final results = List<Map<String, dynamic>>.from(workoutsJson);
+
+    final workouts = results
+        .map((workoutData) => Workout.fromJson(workoutData))
+        .toList(growable: true);
+
+    return workouts;
+  }
+
+  Future<List<Workout>> getForFriends() async {
+    final workoutsJson = await this
+        ._httpService
+        .get('/workouts/for-friends')
         .then((response) => response.data);
 
     final results = List<Map<String, dynamic>>.from(workoutsJson);

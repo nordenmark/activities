@@ -19,7 +19,6 @@ class SingleWorkoutPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("SingleWorkoutPage this.workout: ${this.workout}");
     var activitySuggestions = useProvider(activitiesProvider);
 
     return Scaffold(

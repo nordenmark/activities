@@ -26,8 +26,6 @@ class FriendsService {
         .map((workoutData) => Friend.fromJson(workoutData))
         .toList(growable: true);
 
-    print("Friends: $friends");
-
     return friends;
   }
 }
