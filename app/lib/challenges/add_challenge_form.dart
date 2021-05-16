@@ -49,6 +49,7 @@ class AddChallengeForm extends HookWidget {
 
             DateTime dateTime = await showDatePicker(
                 context: context,
+                locale: const Locale('sv', 'SE'),
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(Duration(days: 1000)),
                 lastDate: DateTime.now().add(Duration(days: 2)));
@@ -82,6 +83,7 @@ class AddChallengeForm extends HookWidget {
 
             DateTime dateTime = await showDatePicker(
                 context: context,
+                locale: const Locale('sv', 'SE'),
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(Duration(days: 1000)),
                 lastDate: DateTime.now().add(Duration(days: 2)));

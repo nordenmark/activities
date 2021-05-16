@@ -47,6 +47,7 @@ class WorkoutForm extends HookWidget {
 
                   DateTime dateTime = await showDatePicker(
                       context: context,
+                      locale: const Locale('sv', 'SE'),
                       initialDate: this.workout == null
                           ? DateTime.now()
                           : this.workout.date,
