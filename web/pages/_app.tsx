@@ -52,7 +52,6 @@ export default class ActivitiesApp extends App {
   };
 
   logout = () => {
-    console.log('logout');
     StorageService.clear();
     this.setState(initialState);
     Router.push('/login');

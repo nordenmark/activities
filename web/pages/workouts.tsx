@@ -30,14 +30,11 @@ export default function Workouts() {
   const { workouts, isLoading, error, mutate } = useWorkouts();
   const [modalOpen, toggleModalOpen] = useState(false);
 
-  console.log('data', workouts);
-
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
   if (error) {
-    console.log('error', error);
     return <></>;
   }
 
@@ -48,10 +45,8 @@ export default function Workouts() {
   };
 
   const onWorkoutCreate = (date: Date, activity: string) => {
-    console.log('workoutCreate', date, activity);
     toggleModal();
     apiService.createWorkout(date, activity).then((workout) => {
-      console.log('workout created', workout);
       mutate();
     });
   };

@@ -46,18 +46,9 @@ class ApiService {
         const state = StorageService.getState();
 
         if (state.accessToken) {
-          console.log(
-            'token used',
-            state.accessToken.substring(state.accessToken.length - 10),
-          );
           // Make sure it is still valid
           if (Date.now() < state.accessTokenExpiresAt) {
             config.headers['Authorization'] = `Bearer ${state.accessToken}`;
-          } else {
-            console.log(
-              'accessToken no longer valid expired at',
-              state.accessTokenExpiresAt,
-            );
           }
         }
 
@@ -122,13 +113,6 @@ class ApiService {
           return Promise.reject(error);
         }
 
-        console.log('error!', error.code, error);
-
-        if (error.response && error.response.status === 401) {
-          console.log('UH-OH 401!');
-        }
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
         return Promise.reject(error);
       },
     );
@@ -159,10 +143,9 @@ class ApiService {
   };
 
   createWorkout = async (date: Date, activity: string) => {
-    return this.axios.post('/workouts', { date, activity }).then((response) => {
-      console.log(response);
-      return response.data;
-    });
+    return this.axios
+      .post('/workouts', { date, activity })
+      .then((response) => response.data);
   };
 }
 
