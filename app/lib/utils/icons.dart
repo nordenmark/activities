@@ -4,9 +4,9 @@ import 'package:flutter_icons/flutter_icons.dart';
 class IconHelper {
   static Map<List<String>, IconData> map = {
     ['padel']: MaterialCommunityIcons.tennis,
-    ['pingis', 'bordtennis']: MaterialCommunityIcons.table_tennis,
-    ['springa', 'springning', 'löpning']: MaterialCommunityIcons.run_fast,
-    ['simma', 'simning']: MaterialCommunityIcons.swim,
+    ['pingis']: MaterialCommunityIcons.table_tennis,
+    ['löpning']: MaterialCommunityIcons.run_fast,
+    ['simning']: MaterialCommunityIcons.swim,
     ['vandring']: FontAwesome5Solid.hiking,
     ['träning hemma']: MaterialCommunityIcons.home,
     ['gym']: MaterialCommunityIcons.dumbbell,
@@ -19,7 +19,8 @@ class IconHelper {
     ['bodyjam']: MaterialCommunityIcons.thumbs_up_down,
     ['yoga']: FontAwesome.yen,
     ['skridskor']: FlutterIcons.skate_mco,
-    ['rehab']: MaterialCommunityIcons.seat_legroom_extra
+    ['rehab']: MaterialCommunityIcons.seat_legroom_extra,
+    ['cykling']: MaterialCommunityIcons.bike,
   };
 
   static IconData iconFromActivity(String activity) {
