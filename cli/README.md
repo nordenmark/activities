@@ -7,5 +7,5 @@ Copy `.env.example` to `.env` and fill it with your details.
 ## Running
 
 ```
-go run .
+go run . [--year <year>]
 ```

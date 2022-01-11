@@ -1,9 +1,11 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/joho/godotenv/autoload"
 )
@@ -14,6 +16,7 @@ type Config struct {
 	apiHost   string
 	cacheRoot string
 	cacheTTL  int
+	year      int
 }
 
 func getConfig() Config {
@@ -29,6 +32,9 @@ func getConfig() Config {
 func main() {
 	var config Config = getConfig()
 
+	flag.IntVar(&config.year, "year", time.Now().Year(), "year to fetch workouts for")
+	flag.Parse()
+
 	cacheService := CreateCacheService(config.cacheRoot, config.cacheTTL)
 	apiService := CreateApiService(config, *cacheService)
 	authService := CreateAuthService(*apiService)
@@ -42,7 +48,7 @@ func main() {
 		log.Fatalf("Login failed with error [%s]", err)
 	}
 
-	workouts, err := workoutsService.List(token, 2021)
+	workouts, err := workoutsService.List(token, config.year)
 
 	Monthly(workouts)
 	ByActivity(workouts)
