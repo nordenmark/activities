@@ -23,6 +23,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "knex": "export $(cat .env | xargs) && knex",
     "knex:production": "export $(cat .env.production | xargs) && knex --env production",
+    "init:db": "export $(cat .env | xargs) && ts-node tools/init-database.ts",
     "gcloud:build": "gcloud builds submit --tag gcr.io/activities-298512/activities",
     "gcloud:deploy": "gcloud run deploy --image gcr.io/activities-298512/activities --platform managed"
   },
